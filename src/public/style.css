@@ -3,14 +3,23 @@ body {
 }
 
 header {
-	background: #229b22;
+	background: #222222;
 	padding: 20px 0;
 }
 
+h1 {
+	height: 200px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+}
+
 .caixa {
+	display: flex;
+	justify-content: space-between;
 	position: relative;
 	margin: 0 auto;
-	width: 940px;
+	width: 1200px;
 }
 
 nav {
@@ -33,24 +42,24 @@ nav a {
 }
 
 nav a:hover {
-	color: #c78c19;
+	color: #0692FE;
 	text-decoration: underline;
 }
 
 footer {
 	text-align: center;
-	background-color: #229b22;
+	background-color: #222222;
 	padding: 40px 0;
 }
 
 .copyright {
-	color: #ffffff;
+	color: #FEFEFE;
 	font-size: 13px;
 	margin: 20px 0 0;
 }
 
 main {
-	margin: 10px;
+	background-color: #F5F5FA;
 }
 
 form {
@@ -117,6 +126,7 @@ td {
 .titulo-principal {
 	text-align: center;
 	font-size: 2em;
+	font-weight: bold;
 	margin: 0 0 1em;
 	clear: left;
 }
@@ -124,8 +134,7 @@ td {
 
 .principal {
 	padding: 3em 0;
-	background: #FEFEFE;
-	color: #226027;
+	color: #222222;
 	width: 940px;
 	margin: 0 auto;
 }
@@ -154,7 +163,7 @@ td {
 }
 
 .local {
-	color: #226027;
+	color: #222222;
 	margin: 0 0 2em;
 	text-align: center;
 }
@@ -165,8 +174,7 @@ td {
 
 .animais {
 	padding: 3em 0;
-	color: #226027;
-	background: #FEFEFE;
+	color: #222222;
 
 }
 
