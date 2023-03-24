@@ -120,7 +120,8 @@ td {
 
 /*css da pagina inicial*/
 .banner {
-	width: 100%;
+	width: 75%;
+	height: 75%;
 }
 
 .titulo-principal {
@@ -151,7 +152,7 @@ td {
 	font-style: italic;
 }
 
-.utensilios {
+.sobre {
 	width: 200px;
 	float: left;
 	margin: 0 20px 20px 0;
