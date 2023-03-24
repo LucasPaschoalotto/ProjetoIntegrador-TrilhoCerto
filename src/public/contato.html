@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Contato - ONG Protetores dos Animais</title>
+
+		<link rel="stylesheet" href="reset.css">
+		<link rel="stylesheet" href="style.css">
+	</head>
+	<body>
+		<header>
+			<div class="caixa">
+				<h1><img src="../assets/logo-ong.jpg" alt="Logo da ONG"></h1>
+
+				<nav>
+					<ul>
+						<li><a href="index.html">ONG Protetores dos Animais</a></li>
+						<li><a href="contato.html">Contato</a></li>
+					</ul>
+				</nav>
+			</div>
+		</header>
+
+		<main>
+			<form>
+				<label for="nomesobrenome">Nome e sobrenome</label>
+				<input type="text" id="nomesobrenome" class="input-padrao">
+
+				<label for="email">Email</label>
+				<input type="email" id="email" class="input-padrao" placeholder="seuemail@dominio.com">
+
+				<label for="telefone">Telefone</label>
+				<input type="tel" id="telefone" class="input-padrao" placeholder="(XX) XXXXX-XXXX">
+
+				<fieldset>
+					<legend>Motivo do contato:</legend>
+					<label for="radio-voluntario"><input type="radio" name="contato" value="voluntario" id="radio-voluntario" checked> Quero ser voluntário</label>
+					
+					<label for="radio-doacao"><input type="radio" name="contato" value="doacao" id="radio-doacao"> Doação de animal</label>
+					
+					<label for="radio-informacoes"><input type="radio" name="contato" value="informacoes" id="radio-informacoes"> Informações</label>
+				</fieldset>
+
+				<label for="mensagem">Mensagem</label>
+				<textarea cols="70" rows="10" id="mensagem" class="input-padrao"></textarea>
+
+				<input type="submit" value="Enviar formulário" class="enviar" id="formEnviar">
+				<script>
+					var enviar = document.getElementById("formEnviar");
+					enviar.addEventListener("click", () => {
+						var nome = document.getElementById("nomesobrenome").value;
+						alert(`Mensagem de ${nome} enviada com sucesso!`);
+					})
+				</script>
+
+			</form>
+
+			<table>
+				<tr>
+					<td style="font-weight: bold;">Dia</td>
+					<td style="font-weight: bold;">Horário de Visitação</td>
+				</tr>
+				<tr>
+					<td>Terça e Quinta Feira</td>
+					<td>10h ~ 16h</td>
+				</tr>
+				<tr>
+					<td>Sábado</td>
+					<td>09h ~ 18h</td>
+				</tr>
+				<tr>
+					<td>Domingo</td>
+					<td>09h ~ 16h</td>
+				</tr>
+			</table>
+		</main>
+
+		<footer>
+			<img src="../assets/logo-ong.jpg" alt="Logo da ONG">
+			<p class="copyright">ONG Protetores dos Animais</p>
+		</footer>
+	</body>
+</html>
