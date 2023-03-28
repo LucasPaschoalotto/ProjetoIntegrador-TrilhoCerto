@@ -62,66 +62,11 @@ main {
 	background-color: #F5F5FA;
 }
 
-form {
-	margin: 40px 0;
-}
-
-form label,
-form legend {
-	display: block;
-	font: 20px;
-	margin: 0 0 10px;
-}
-
-.input-padrao {
-	display: block;
-	margin: 0 0 10px;
-	padding: 10px 25px;
-	width: 50%;
-}
-
-.checkbox {
-	margin: 20px 0;
-}
-
-.enviar {
-	width: 40%;
-	padding: 15px 0;
-	background: orange;
-	color: white;
-	font-weight: bold;
-	font-size: 18px;
-	border: none;
-	border-radius: 5px;
-	transition: 1s all;
-	cursor: pointer;
-}
-
-.enviar:hover {
-	background: darkorange;
-	transform: scale(1.2);
-}
-
-table {
-	margin: 20px 0 40px;
-}
-
-thead {
-	background: #555555;
-	color: white;
-	font-weight: bold;
-}
-
-th,
-td {
-	border: 1px solid #000000;
-	padding: 8px 15px;
-}
-
 /*css da pagina inicial*/
+
 .banner {
-	width: 75%;
-	height: 75%;
+	width: 100%;
+	margin-bottom: 20px;
 }
 
 .titulo-principal {
@@ -141,6 +86,7 @@ td {
 }
 
 .principal p {
+	line-height: 120%;
 	margin: 0 0 1em;
 }
 
@@ -159,7 +105,7 @@ td {
 }
 
 .local-conteudo {
-	width: 940px;
+	width: 500px;
 	margin: 0 auto;
 }
 
@@ -208,7 +154,72 @@ td {
 	margin: 2em auto;
 }
 
-@media screen and (max-width: 1000px) {
+/*css da pagina contato*/
+
+form {
+	padding: 20px;
+}
+
+form label,
+form legend {
+	display: block;
+	font: 20px;
+	margin: 0 0 10px;
+}
+
+.input-padrao {
+	display: block;
+	margin: 0 0 10px;
+	padding: 10px 25px;
+	width: 50%;
+}
+
+.checkbox {
+	margin: 20px 0;
+}
+
+.enviar {
+	width: 40%;
+	padding: 15px 0;
+	background: #0692FE;
+	color: white;
+	font-weight: bold;
+	font-size: 18px;
+	border: none;
+	border-radius: 5px;
+	transition: 1s all;
+	cursor: pointer;
+}
+
+.enviar:hover {
+	background: #0675ca;
+}
+
+table {
+	background-color: #F5F5FA;
+	
+	margin: 20px;
+}
+
+thead {
+	background: #555555;
+	color: white;
+	font-weight: bold;
+}
+
+th,
+td {
+	border: 1px solid #000000;
+	padding: 8px 15px;
+}
+
+#qrcode {
+	width: 350px;
+	float: left;
+	margin: 20px;
+}
+
+@media screen and (max-width: 1250px) {
 
 	.caixa,
 	.principal,

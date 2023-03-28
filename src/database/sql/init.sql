@@ -1,6 +1,6 @@
-CREATE database controlefinanceiro
+CREATE database trilhocerto
 
-CREATE TABLE IF NOT EXISTS usuarios(
+CREATE TABLE IF NOT EXISTS voluntarios(
     uuid uuid DEFAULT uuid_generate_v4(),
     nome varchar(100) NOT NULL,
     email varchar(100) NOT NULL,
@@ -39,7 +39,7 @@ CREATE INDEX ix_despesas_01 ON despesas USING btree (id_usuario);
 ALTER TABLE despesas ADD CONSTRAINT fk_despesas_01 FOREIGN KEY (id_usuario) REFERENCES usuarios(uuid);
 
 
-CREATE TABLE IF NOT EXISTS saldos (
+CREATE TABLE IF NOT EXISTS doacoes (
     uuid uuid DEFAULT uuid_generate_v4(),
 	id_usuario uuid NOT null,
 	renda float NOT NULL,
