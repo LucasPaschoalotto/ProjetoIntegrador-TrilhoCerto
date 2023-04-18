@@ -119,23 +119,23 @@ main {
 	padding: 5px;
 }
 
-.animais {
+.doacao {
 	padding: 3em 0;
 	color: #222222;
 
 }
 
-.conteudo-animais {
+.conteudo-doacao {
 	width: 640px;
 	margin: 0 auto;
 }
 
-.conteudo-animais p {
+.conteudo-doacao p {
 	text-align: center;
 	padding: 5px;
 }
 
-.lista-animais {
+.lista-doacao {
 	width: 40%;
 	display: inline-block;
 	vertical-align: top;
@@ -145,7 +145,7 @@ main {
 	line-height: 1.5;
 }
 
-.imagem-animais {
+.imagem-doacao {
 	width: 50%;
 	height: 30%;
 }
