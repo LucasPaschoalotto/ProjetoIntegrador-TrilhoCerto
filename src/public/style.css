@@ -247,6 +247,27 @@ td {
 	font-size: 18px;
 }
 
+#cadastroVoluntarios, #cadastroDoacoes, #cadastroBazar {
+	display: flex;
+    justify-content: center;
+    height: 1em;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: stretch;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+#setNomeVoluntario, #setEmailVoluntario, #setCPFVoluntario, #setTelefoneVoluntario, #inserirVoluntario, #exibirVoluntarios, #setValorDoacao, #setCPFDoacao, #inserirDoacao, #exibirDoacoes, #setDescricaoBazar, #setCPFBazar, #inserirBazar, #exibirBazar {
+	margin: 5px;
+    border-radius: 5px;
+    border-color: #0675ca;
+    border-style: solid;
+    text-align: center;
+	font-size: 15px;
+}
+
 
 @media screen and (max-width: 1250px) {
 

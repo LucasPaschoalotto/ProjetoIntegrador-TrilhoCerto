@@ -36,6 +36,7 @@ rota.get("/style.css", (req, res) => {
     res.sendFile("style.css", {root: './src/public'});
 });
 
+//Rota imagens
 rota.get("/assets/bg.jpg", (req, res) => {
     res.sendFile("bg.jpg", {root: './src/assets'});
 });
