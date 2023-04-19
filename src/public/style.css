@@ -220,6 +220,24 @@ td {
 	margin: 20px;
 }
 
+#login {
+    display: flex;
+    justify-content: center;
+    height: 10em;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+#setUsuario, #setSenha, #logarUsuario {
+	margin: 5px;
+    border-radius: 5px;
+    border-color: #0675ca;
+    border-style: solid;
+    text-align: center;
+}
+
+
 @media screen and (max-width: 1250px) {
 
 	.caixa,

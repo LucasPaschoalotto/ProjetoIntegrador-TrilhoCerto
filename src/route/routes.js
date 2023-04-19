@@ -7,30 +7,45 @@ const rota = Router()
 rota.get("/", (req, res) => {
     res.sendFile("index.html", {root: './src/public'});
 });
-rota.get("/index.js", (req, res) => {
-    res.sendFile("index.js", {root: './src/public'});
+rota.get("/index.html", (req, res) => {
+    res.sendFile("index.html", {root: './src/public'});
 });
-rota.get("/index.css", (req, res) => {
-    res.sendFile("index.css", {root: './src/public'});
+rota.get("/doacao.html", (req, res) => {
+    res.sendFile("doacao.html", {root: './src/public'});
 });
-rota.get("/classes/Usuario.js", (req, res) => {
-    res.sendFile("Usuario.js", {root: './src/classes'});
+rota.get("/contato.html", (req, res) => {
+    res.sendFile("contato.html", {root: './src/public'});
 });
-rota.get("/classes/Transacao.js", (req, res) => {
-    res.sendFile("Transacao.js", {root: './src/classes'});
+rota.get("/login.html", (req, res) => {
+    res.sendFile("login.html", {root: './src/public'});
 });
-rota.get("/classes/Renda.js", (req, res) => {
-    res.sendFile("Renda.js", {root: './src/classes'});
+rota.get("/login.js", (req, res) => {
+    res.sendFile("login.js", {root: './src/public'});
 });
-rota.get("/classes/Despesa.js", (req, res) => {
-    res.sendFile("Despesa.js", {root: './src/classes'});
+
+rota.get("/reset.css", (req, res) => {
+    res.sendFile("reset.css", {root: './src/public'});
 });
-rota.get("/classes/Saldo.js", (req, res) => {
-    res.sendFile("Saldo.js", {root: './src/classes'});
+rota.get("/style.css", (req, res) => {
+    res.sendFile("style.css", {root: './src/public'});
 });
-rota.get("/classes/Html.js", (req, res) => {
-    res.sendFile("Usuario.js", {root: './src/classes'});
+
+rota.get("/assets/bg.jpg", (req, res) => {
+    res.sendFile("bg.jpg", {root: './src/assets'});
 });
+rota.get("/assets/crianca.jpg", (req, res) => {
+    res.sendFile("crianca.jpg", {root: './src/assets'});
+});
+rota.get("/assets/logo.png", (req, res) => {
+    res.sendFile("logo.png", {root: './src/assets'});
+});
+rota.get("/assets/qr.png", (req, res) => {
+    res.sendFile("qr.png", {root: './src/assets'});
+});
+rota.get("/assets/sobre.jpg", (req, res) => {
+    res.sendFile("sobre.jpg", {root: './src/assets'});
+});
+
 
 //ROTA CREATE USUARIO
 rota.post("/users", async (req, res) => {
