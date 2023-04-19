@@ -54,12 +54,13 @@ rota.get("/assets/sobre.jpg", (req, res) => {
 });
 
 
-//ROTA CREATE USUARIO
-rota.post("/users", async (req, res) => {
+//ROTA CREATE VOLUNTARIO
+rota.post("/voluntarios", async (req, res) => {
     const nome = req.body.nome;
     const email = req.body.email;
     const cpf = req.body.cpf;
-    const user = await controllerRoutes.createUser(nome, email, cpf);
+    const telefone = req.body.telefone;
+    const user = await controllerRoutes.createVoluntario(nome, email, cpf, telefone);
     res.status(200).send(user);
 });
 
@@ -92,10 +93,10 @@ rota.post("/users/saldo", async (req, res) => {
 });
 
 
-//ROTA READ ALL USERS
-rota.get("/users/getAllUsers", async(req, res) => {
-    const getUsers = await controllerRoutes.findAllUsers();
-    res.status(200).send(getUsers);
+//ROTA READ ALL Voluntarios
+rota.get("/voluntarios/getAllVoluntarios", async(req, res) => {
+    const getVoluntarios = await controllerRoutes.findAllVoluntarios();
+    res.status(200).send(getVoluntarios);
 });
 
 //ROTA READ ALL RENDAS

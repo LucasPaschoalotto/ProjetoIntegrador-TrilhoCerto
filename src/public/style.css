@@ -197,21 +197,14 @@ form legend {
 }
 
 table {
+	align-items: center;
+	margin: 50px 20px 20px 20px;
 	background-color: #F5F5FA;
-	
-	margin: 20px;
 }
 
-thead {
-	background: #555555;
-	color: white;
-	font-weight: bold;
-}
-
-th,
 td {
 	border: 1px solid #000000;
-	padding: 8px 15px;
+	padding: 8px 20px;
 }
 
 #qrcode {
@@ -236,6 +229,12 @@ td {
     flex-direction: row;
     flex-wrap: wrap;
     align-items: center;
+}
+
+#cadastroVoluntarios{
+	height: 40px;
+	padding: 10px;
+	margin: 15px;
 }
 
 #setUsuario, #setSenha, #logarUsuario, #gestaoVoluntarios, #gestaoDoacoes, #gestaoBazar {
@@ -267,7 +266,6 @@ td {
     text-align: center;
 	font-size: 15px;
 }
-
 
 @media screen and (max-width: 1250px) {
 

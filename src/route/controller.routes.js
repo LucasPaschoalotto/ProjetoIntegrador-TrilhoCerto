@@ -1,18 +1,18 @@
 import dataBase from "../database/db.js";
 
 class RouteController{
-    //Método para criar usuário
-    async createUser(nome, email, cpf){
-        const createUser = `
-        INSERT INTO usuarios (nome, email, cpf)
-        VALUES ($1, $2, $3)
+    //Método para criar voluntário
+    async createVoluntario(nome, email, cpf, telefone){
+        const createVoluntario = `
+        INSERT INTO voluntarios (nome, email, cpf, telefone)
+        VALUES ($1, $2, $3, $4)
         `;
         
-        const createUserValues = [nome, email, cpf];
-        const {rows} = await dataBase.query(createUser, createUserValues);
-        const [newUser] = rows;
+        const createVoluntarioValues = [nome, email, cpf, telefone];
+        const {rows} = await dataBase.query(createVoluntario, createVoluntarioValues);
+        const [newVoluntario] = rows;
     
-        return newUser;
+        return newVoluntario;
     }
 
     //Método para criar renda
@@ -58,13 +58,13 @@ class RouteController{
     }
 
     //Método para listar todo os usuários
-    async findAllUsers(){
-        const findUsers = `
-        SELECT uuid, nome, email, cpf
-        FROM usuarios
+    async findAllVoluntarios(){
+        const findVoluntarios = `
+        SELECT uuid, nome, email, cpf, telefone
+        FROM voluntarios
         `;
 
-        const {rows} = await dataBase.query(findUsers);
+        const {rows} = await dataBase.query(findVoluntarios);
         
         return rows || [];
     }
