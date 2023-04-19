@@ -220,7 +220,7 @@ td {
 	margin: 20px;
 }
 
-#login {
+#login{
     display: flex;
     justify-content: center;
     height: 10em;
@@ -229,12 +229,22 @@ td {
     align-items: center;
 }
 
-#setUsuario, #setSenha, #logarUsuario {
+#tiposGestoes{
+    display: flex;
+    justify-content: center;
+    height: 3em;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+#setUsuario, #setSenha, #logarUsuario, #gestaoVoluntarios, #gestaoDoacoes, #gestaoBazar {
 	margin: 5px;
     border-radius: 5px;
     border-color: #0675ca;
     border-style: solid;
     text-align: center;
+	font-size: 18px;
 }
 
 

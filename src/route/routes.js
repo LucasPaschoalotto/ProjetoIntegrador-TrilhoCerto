@@ -22,6 +22,12 @@ rota.get("/login.html", (req, res) => {
 rota.get("/login.js", (req, res) => {
     res.sendFile("login.js", {root: './src/public'});
 });
+rota.get("/gestao.html", (req, res) => {
+    res.sendFile("gestao.html", {root: './src/public'});
+});
+rota.get("/gestao.js", (req, res) => {
+    res.sendFile("gestao.js", {root: './src/public'});
+});
 
 rota.get("/reset.css", (req, res) => {
     res.sendFile("reset.css", {root: './src/public'});
