@@ -72,7 +72,7 @@ class RouteController{
     //Método para listar todo as doações
     async findAllDoacoes(){
         const findDoacoes = `
-        SELECT valor, id_voluntario
+        SELECT valor, id_voluntario, datahora
         FROM doacao
         `;
 

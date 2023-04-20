@@ -11,12 +11,14 @@ var inicioRetorno = document.getElementById("retorno");
 var inicioRetornoTable = document.getElementById("retornoTable");
 
 var gestaoV = 0;
+var gestaoD = 0;
+var gestaoB = 0;
+var gestaoM = 0;
 
-
+//VOLUNTÁRIOS
 buttonGestaoVoluntarios.addEventListener("click", (form) => {
-
     form.preventDefault();
-
+    
     if(btnVoluntarios > 0) return;
     
     //Remover mensagens anteriores
@@ -30,13 +32,21 @@ buttonGestaoVoluntarios.addEventListener("click", (form) => {
         textBazar.remove();
         btnBazar--;
     }
-
+    if (gestaoV > 0 || gestaoD > 0){
+        var tableRetorno = document.querySelector("#tableRetorno")
+        var tableRetornoValores = document.querySelectorAll("#tableRetornoValores");
+        tableRetorno.remove();
+        tableRetornoValores.forEach(element => element.remove());
+        gestaoV = 0;
+        gestaoD = 0;
+    }
+    
     //Printar na tela as caixas
     inicioRetorno.insertAdjacentHTML("afterend", `
-        <form id="cadastroVoluntarios">
-        <input id="setNomeVoluntario" placeholder="Nome"/>
-        <input id="setEmailVoluntario" placeholder="Email"/>
-        <input id="setCPFVoluntario" placeholder="CPF"/>
+    <form id="cadastroVoluntarios">
+    <input id="setNomeVoluntario" placeholder="Nome"/>
+    <input id="setEmailVoluntario" placeholder="Email"/>
+    <input id="setCPFVoluntario" placeholder="CPF"/>
         <input id="setTelefoneVoluntario" placeholder="Telefone"/>
         <button id="inserirVoluntario">Inserir Voluntario</button>
         <button id="exibirVoluntarios">Exibir Voluntarios</button>
@@ -49,12 +59,13 @@ buttonGestaoVoluntarios.addEventListener("click", (form) => {
 
     btnInserirV.addEventListener("click", async(form) => {
         form.preventDefault();
-        if (gestaoV > 0){
-            var tableV = document.querySelector("#tableVoluntario")
-            var tableValoresV = document.querySelectorAll("#tableValoresVoluntarios");
-            tableV.remove();
-            tableValoresV.forEach(element => element.remove());
-            gestaoV--;
+        if (gestaoV > 0 || gestaoD > 0){
+            var tableRetorno = document.querySelector("#tableRetorno")
+            var tableRetornoValores = document.querySelectorAll("#tableRetornoValores");
+            tableRetorno.remove();
+            tableRetornoValores.forEach(element => element.remove());
+            gestaoV = 0;
+            gestaoD = 0;
         }
 
         var campoNomeV = document.getElementById("setNomeVoluntario");
@@ -99,16 +110,20 @@ buttonGestaoVoluntarios.addEventListener("click", (form) => {
             .then(response => response.json())          
             .then(json => allVoluntarios = json);
             
-            inicioRetornoTable.insertAdjacentHTML("afterbegin", `<tr id="tableVoluntario"><td style="font-weight: bold;">Nome</td><td style="font-weight: bold;">Email</td><td style="font-weight: bold;">CPF</td><td style="font-weight: bold;">Telefone</td></tr>            
+            inicioRetornoTable.insertAdjacentHTML("afterbegin", `<tr id="tableRetorno"><td style="font-weight: bold;">Nome</td><td style="font-weight: bold;">Email</td><td style="font-weight: bold;">CPF</td><td style="font-weight: bold;">Telefone</td></tr>            
             `);
         for(var i=0; i < allVoluntarios.length; i++){
-            inicioRetornoTable.insertAdjacentHTML("beforeend", `<tr id="tableValoresVoluntarios"><td>${allVoluntarios[i].nome}</td><td>${allVoluntarios[i].email}</td><td>${allVoluntarios[i].cpf}</td><td>${allVoluntarios[i].cpf}</td></tr>`);
+            inicioRetornoTable.insertAdjacentHTML("beforeend", `<tr id="tableRetornoValores"><td>${allVoluntarios[i].nome}</td><td>${allVoluntarios[i].email}</td><td>${allVoluntarios[i].cpf}</td><td>${allVoluntarios[i].cpf}</td></tr>`);
         };
         gestaoV++;
     });
 });
 
-buttonGestaoDoacoes.addEventListener("click", () => {
+
+//DOAÇÕES
+buttonGestaoDoacoes.addEventListener("click", (form) => {
+    form.preventDefault();
+
     if(btnDoacoes > 0) return;
 
     //Remover mensagens anteriores
@@ -122,12 +137,13 @@ buttonGestaoDoacoes.addEventListener("click", () => {
         textBazar.remove();
         btnBazar--;
     }
-    if (gestaoV > 0){
-        var tableV = document.querySelector("#tableVoluntario")
-        var tableValoresV = document.querySelectorAll("#tableValoresVoluntarios");
-        tableV.remove();
-        tableValoresV.forEach(element => element.remove());
-        gestaoV--;
+    if (gestaoV > 0 || gestaoD > 0){
+        var tableRetorno = document.querySelector("#tableRetorno")
+        var tableRetornoValores = document.querySelectorAll("#tableRetornoValores");
+        tableRetorno.remove();
+        tableRetornoValores.forEach(element => element.remove());
+        gestaoV = 0;
+        gestaoD = 0;
     }
 
     //Printar na tela as caixas
@@ -147,6 +163,15 @@ buttonGestaoDoacoes.addEventListener("click", () => {
     btnInserirD.addEventListener("click", async(form) => {
         form.preventDefault();
 
+        if (gestaoV > 0 || gestaoD > 0){
+            var tableRetorno = document.querySelector("#tableRetorno")
+            var tableRetornoValores = document.querySelectorAll("#tableRetornoValores");
+            tableRetorno.remove();
+            tableRetornoValores.forEach(element => element.remove());
+            gestaoV = 0;
+            gestaoD = 0;
+        }
+   
         var campoValorD = document.getElementById("setValorDoacao");
         var campoCPFD = document.getElementById("setCPFDoacao");
 
@@ -184,10 +209,49 @@ buttonGestaoDoacoes.addEventListener("click", () => {
 
         campoValorD.value = "";
         campoCPFD.value = "";
+    });
 
+    btnExibirD.addEventListener("click", async(form) => {
+        form.preventDefault();
+
+        if (gestaoD > 0) return;
+
+        let allVoluntarios;
+        await fetch("/voluntarios/getAllVoluntarios",{
+            method: "GET"
+            })
+            .then(response => response.json())          
+            .then(json => allVoluntarios = json);
+   
+        let allDoacoes;
+        await fetch("/doacoes/getAllDoacoes",{
+            method: "GET"
+            })
+            .then(response => response.json())          
+            .then(json => allDoacoes = json);
+
+        inicioRetornoTable.insertAdjacentHTML("afterbegin", `<tr id="tableRetorno"><td style="font-weight: bold;">Nome</td><td style="font-weight: bold;">Valor da Doação</td><td style="font-weight: bold;">Data</td></tr>            
+        `);
+
+        let doacaoNome;
+        for(var i=0; i < allDoacoes.length; i++){
+            let data = new Date(allDoacoes[i].datahora)
+            let dataFormatada = ((data.getDate() + "/" + ((data.getMonth() + 1)) + "/" + data.getFullYear()));
+
+            for(var j=0; j < allVoluntarios.length; j++){
+                if (allDoacoes[i].id_voluntario == allVoluntarios[j].uuid){
+                    console.log(allDoacoes[i].id_voluntario);
+                    console.log(allVoluntarios[j].uuid)
+                    doacaoNome = allVoluntarios[j].nome;
+                };
+            };
+            inicioRetornoTable.insertAdjacentHTML("beforeend", `<tr id="tableRetornoValores"><td>${doacaoNome}</td><td>R$ ${allDoacoes[i].valor}</td><td>${dataFormatada}</td></tr>`);
+        };
+        gestaoD++;
     });
 });
 
+//BAZAR
 buttonGestaoBazar.addEventListener("click", () => {
     if(btnBazar > 0) return;
 
@@ -202,12 +266,13 @@ buttonGestaoBazar.addEventListener("click", () => {
         textDoacoes.remove();
         btnDoacoes--;
     }
-    if (gestaoV > 0){
-        var tableV = document.querySelector("#tableVoluntario")
-        var tableValoresV = document.querySelectorAll("#tableValoresVoluntarios");
-        tableV.remove();
-        tableValoresV.forEach(element => element.remove());
-        gestaoV--;
+    if (gestaoV > 0 || gestaoD > 0){
+        var tableRetorno = document.querySelector("#tableRetorno")
+        var tableRetornoValores = document.querySelectorAll("#tableRetornoValores");
+        tableRetorno.remove();
+        tableRetornoValores.forEach(element => element.remove());
+        gestaoV = 0;
+        gestaoD = 0;
     }
 
     //Printar na tela as caixas
