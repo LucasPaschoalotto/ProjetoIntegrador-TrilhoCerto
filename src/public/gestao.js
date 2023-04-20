@@ -10,9 +10,13 @@ var btnBazar = 0;
 var inicioRetorno = document.getElementById("retorno");
 var inicioRetornoTable = document.getElementById("retornoTable");
 
+var gestaoV = 0;
+
+
 buttonGestaoVoluntarios.addEventListener("click", (form) => {
-    var gestaoV = 0;
+
     form.preventDefault();
+
     if(btnVoluntarios > 0) return;
     
     //Remover mensagens anteriores
@@ -45,6 +49,13 @@ buttonGestaoVoluntarios.addEventListener("click", (form) => {
 
     btnInserirV.addEventListener("click", async(form) => {
         form.preventDefault();
+        if (gestaoV > 0){
+            var tableV = document.querySelector("#tableVoluntario")
+            var tableValoresV = document.querySelectorAll("#tableValoresVoluntarios");
+            tableV.remove();
+            tableValoresV.forEach(element => element.remove());
+            gestaoV--;
+        }
 
         var campoNomeV = document.getElementById("setNomeVoluntario");
         var campoEmailV = document.getElementById("setEmailVoluntario");
@@ -55,6 +66,11 @@ buttonGestaoVoluntarios.addEventListener("click", (form) => {
         var emailV = campoEmailV.value;
         var cpfV = campoCPFV.value;
         var telefoneV = campoTelefoneV.value;
+
+        if(!nomeV || !emailV || !cpfV || !telefoneV || isNaN(cpfV) === true || isNaN(telefoneV) === true){
+            console.log("dados incorretos");
+            return;
+        }
     
         await fetch('/voluntarios', {
             method: 'POST',
@@ -73,6 +89,7 @@ buttonGestaoVoluntarios.addEventListener("click", (form) => {
 
     btnExibirV.addEventListener("click", async(form) => {
         form.preventDefault();
+
         if (gestaoV > 0) return;
 
         let allVoluntarios;
@@ -82,10 +99,10 @@ buttonGestaoVoluntarios.addEventListener("click", (form) => {
             .then(response => response.json())          
             .then(json => allVoluntarios = json);
             
-            inicioRetornoTable.insertAdjacentHTML("afterbegin", `<tr><td style="font-weight: bold;">Nome</td><td style="font-weight: bold;">Email</td><td style="font-weight: bold;">CPF</td><td style="font-weight: bold;">Telefone</td></tr>            
+            inicioRetornoTable.insertAdjacentHTML("afterbegin", `<tr id="tableVoluntario"><td style="font-weight: bold;">Nome</td><td style="font-weight: bold;">Email</td><td style="font-weight: bold;">CPF</td><td style="font-weight: bold;">Telefone</td></tr>            
             `);
         for(var i=0; i< allVoluntarios.length; i++){
-            inicioRetornoTable.insertAdjacentHTML("beforeend", `<tr><td>${allVoluntarios[i].nome}</td><td>${allVoluntarios[i].email}</td><td>${allVoluntarios[i].cpf}</td><td>${allVoluntarios[i].cpf}</td></tr>`);
+            inicioRetornoTable.insertAdjacentHTML("beforeend", `<tr id="tableValoresVoluntarios"><td>${allVoluntarios[i].nome}</td><td>${allVoluntarios[i].email}</td><td>${allVoluntarios[i].cpf}</td><td>${allVoluntarios[i].cpf}</td></tr>`);
         };
         gestaoV++;
     });
@@ -105,6 +122,13 @@ buttonGestaoDoacoes.addEventListener("click", () => {
         textBazar.remove();
         btnBazar--;
     }
+    if (gestaoV > 0){
+        var tableV = document.querySelector("#tableVoluntario")
+        var tableValoresV = document.querySelectorAll("#tableValoresVoluntarios");
+        tableV.remove();
+        tableValoresV.forEach(element => element.remove());
+        gestaoV--;
+    }
 
     //Printar na tela as caixas
     inicioRetorno.insertAdjacentHTML("afterend", `
@@ -116,6 +140,14 @@ buttonGestaoDoacoes.addEventListener("click", () => {
         </form>
         `);
     btnDoacoes++;
+
+    var btnInserirD = document.getElementById("inserirDoacao");
+    var btnExibirD = document.getElementById("exibirDoacoes");
+
+    btnInserirD.addEventListener("click", async(form) => {
+        form.preventDefault();
+
+    });
 });
 
 buttonGestaoBazar.addEventListener("click", () => {
@@ -131,6 +163,13 @@ buttonGestaoBazar.addEventListener("click", () => {
         var textDoacoes = document.getElementById("cadastroDoacoes");
         textDoacoes.remove();
         btnDoacoes--;
+    }
+    if (gestaoV > 0){
+        var tableV = document.querySelector("#tableVoluntario")
+        var tableValoresV = document.querySelectorAll("#tableValoresVoluntarios");
+        tableV.remove();
+        tableValoresV.forEach(element => element.remove());
+        gestaoV--;
     }
 
     //Printar na tela as caixas
