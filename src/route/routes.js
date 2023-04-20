@@ -72,25 +72,13 @@ rota.post("/doacoes", async (req, res) => {
     res.status(200).send(doacao);
 });
 
-//ROTA CREATE DESPESA
-rota.post("/users/despesa", async (req, res) => {
-    const id_usuario = req.body.id_usuario;
-    const valor = req.body.valor;
+//ROTA CREATE BAZAR
+rota.post("/bazar", async (req, res) => {
     const descricao = req.body.descricao;
-    const despesa = await controllerRoutes.createDespesa(id_usuario, valor, descricao);
-    res.status(200).send(despesa);
+    const id_voluntario = req.body.id_voluntario;
+    const bazar = await controllerRoutes.createDespesa(descricao, id_voluntario);
+    res.status(200).send(bazar);
 });
-
-//ROTA CREATE SALDO
-rota.post("/users/saldo", async (req, res) => {
-    const id_usuario = req.body.id_usuario;
-    const renda = req.body.renda;
-    const despesa = req.body.despesa;
-    const saldo = req.body.saldo;
-    const saldoFinal = await controllerRoutes.createSaldo(id_usuario, renda, despesa, saldo);
-    res.status(200).send(saldoFinal);
-});
-
 
 //ROTA READ ALL Voluntarios
 rota.get("/voluntarios/getAllVoluntarios", async(req, res) => {
@@ -104,48 +92,10 @@ rota.get("/doacoes/getAllDoacoes", async(req, res) => {
     res.status(200).send(getDoacoes);
 });
 
-//ROTA READ ALL DESPESAS
-rota.get("/users/getAllDespesas", async(req, res) => {
-    const getDespesas = await controllerRoutes.findAllDespesas();
-    res.status(200).send(getDespesas);
-});
-
-//ROTA READ ALL SALDOS
-rota.get("/users/getAllSaldos", async(req, res) => {
-    const getSaldos = await controllerRoutes.findAllSaldos();
-    res.status(200).send(getSaldos);
-});
-
-//ROTA READ BY NAME
-rota.get("/users/getByUser", async(req, res) => {
-    try{
-        const nome = req.body.nome;
-        const email = req.body.email;
-        const cpf = req.body.cpf;
-        const getUserName = await controllerRoutes.findByUser(nome, email, cpf);
-        res.status(200).send(getUserName);
-    } catch(error){
-        console.log("erro no retorno do usuário por Nome");
-    }    
-})
-
-//ROTA UPDATE BY NAME
-rota.put("/users/updateSaldo", async(req, res) => {
-    const id_usuario = req.body.id_usuario;
-    const renda = req.body.renda;
-    const despesa = req.body.despesa;
-    const saldo = req.body.saldo;
-    await controllerRoutes.updateSaldo(id_usuario, renda, despesa, saldo);
-    res.status(200).send();
-});
-
-//ROTA DELETE
-rota.delete("/users/deleteUser", async(req, res) => {
-    const nome = req.body.nome;
-    const email = req.body.email;
-    const cpf = req.body.cpf;
-    await controllerRoutes.deleteUser(nome, email, cpf);
-    res.status(200).send();
+//ROTA READ ALL Bazar
+rota.get("/bazar/getAllBazar", async(req, res) => {
+    const getBazar = await controllerRoutes.findAllBazar();
+    res.status(200).send(getBazar);
 });
 
 export default rota;
