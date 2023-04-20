@@ -57,7 +57,7 @@ class RouteController{
         return newSaldo;
     }
 
-    //Método para listar todo os usuários
+    //Método para listar todo os voluntários
     async findAllVoluntarios(){
         const findVoluntarios = `
         SELECT uuid, nome, email, cpf, telefone
@@ -69,14 +69,14 @@ class RouteController{
         return rows || [];
     }
     
-    //Método para listar todo as rendas
-    async findAllRendas(){
-        const findRendas = `
-        SELECT uuid, id_usuario, valor, descricao, datahora
-        FROM rendas
+    //Método para listar todo as doações
+    async findAllDoacoes(){
+        const findDoacoes = `
+        SELECT valor, id_voluntario
+        FROM doacao
         `;
 
-        const {rows} = await dataBase.query(findRendas);
+        const {rows} = await dataBase.query(findDoacoes);
         
         return rows || [];
     }

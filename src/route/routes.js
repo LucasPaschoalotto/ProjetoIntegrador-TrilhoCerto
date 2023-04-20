@@ -98,10 +98,10 @@ rota.get("/voluntarios/getAllVoluntarios", async(req, res) => {
     res.status(200).send(getVoluntarios);
 });
 
-//ROTA READ ALL RENDAS
-rota.get("/users/getAllRendas", async(req, res) => {
-    const getRendas = await controllerRoutes.findAllRendas();
-    res.status(200).send(getRendas);
+//ROTA READ ALL Doações
+rota.get("/doacoes/getAllDoacoes", async(req, res) => {
+    const getDoacoes = await controllerRoutes.findAllDoacoes();
+    res.status(200).send(getDoacoes);
 });
 
 //ROTA READ ALL DESPESAS
