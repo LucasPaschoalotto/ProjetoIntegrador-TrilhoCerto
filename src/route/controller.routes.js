@@ -15,18 +15,18 @@ class RouteController{
         return newVoluntario;
     }
 
-    //Método para criar renda
-    async createRenda(id_usuario, valor, descricao){
-        const createRenda = `
-        INSERT INTO rendas (id_usuario, valor, descricao)
-        VALUES ($1, $2, $3)
+    //Método para criar doação
+    async createDoacao(valor, id_voluntario){
+        const createDoacao = `
+        INSERT INTO doacao (valor, id_voluntario)
+        VALUES ($1, $2)
         `;
         
-        const createRendaValues = [id_usuario, valor, descricao];
-        const {rows} = await dataBase.query(createRenda, createRendaValues);
-        const [newRenda] = rows;
+        const createDoacaoValues = [valor, id_voluntario];
+        const {rows} = await dataBase.query(createDoacao, createDoacaoValues);
+        const [newDoacao] = rows;
     
-        return newRenda;
+        return newDoacao;
     }
 
     //Método para criar despesa

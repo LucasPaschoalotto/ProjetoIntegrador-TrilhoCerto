@@ -101,7 +101,7 @@ buttonGestaoVoluntarios.addEventListener("click", (form) => {
             
             inicioRetornoTable.insertAdjacentHTML("afterbegin", `<tr id="tableVoluntario"><td style="font-weight: bold;">Nome</td><td style="font-weight: bold;">Email</td><td style="font-weight: bold;">CPF</td><td style="font-weight: bold;">Telefone</td></tr>            
             `);
-        for(var i=0; i< allVoluntarios.length; i++){
+        for(var i=0; i < allVoluntarios.length; i++){
             inicioRetornoTable.insertAdjacentHTML("beforeend", `<tr id="tableValoresVoluntarios"><td>${allVoluntarios[i].nome}</td><td>${allVoluntarios[i].email}</td><td>${allVoluntarios[i].cpf}</td><td>${allVoluntarios[i].cpf}</td></tr>`);
         };
         gestaoV++;
@@ -146,6 +146,44 @@ buttonGestaoDoacoes.addEventListener("click", () => {
 
     btnInserirD.addEventListener("click", async(form) => {
         form.preventDefault();
+
+        var campoValorD = document.getElementById("setValorDoacao");
+        var campoCPFD = document.getElementById("setCPFDoacao");
+
+        var valorD = campoValorD.value;
+        var cpfD = campoCPFD.value;
+
+        if(!valorD || !cpfD || isNaN(valorD) === true || isNaN(cpfD) === true){
+            console.log("dados incorretos");
+            return;
+        }
+
+        let allVoluntarios;
+        await fetch("/voluntarios/getAllVoluntarios",{
+            method: "GET"
+            })
+            .then(response => response.json())          
+            .then(json => allVoluntarios = json);
+
+      
+        let voluntarioID = cpfD;
+        for(var i=0; i < allVoluntarios.length; i++){
+            if(cpfD == allVoluntarios[i].cpf){
+                voluntarioID = allVoluntarios[i].uuid;
+            };
+        };
+
+        await fetch('/doacoes', {
+            method: 'POST',
+            headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({valor: valorD, id_voluntario: voluntarioID})
+        });
+
+        campoValorD.value = "";
+        campoCPFD.value = "";
 
     });
 });

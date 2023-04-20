@@ -64,13 +64,12 @@ rota.post("/voluntarios", async (req, res) => {
     res.status(200).send(user);
 });
 
-//ROTA CREATE RENDA
-rota.post("/users/renda", async (req, res) => {
-    const id_usuario = req.body.id_usuario;
+//ROTA CREATE DOAÇÃO
+rota.post("/doacoes", async (req, res) => {
     const valor = req.body.valor;
-    const descricao = req.body.descricao;
-    const renda = await controllerRoutes.createRenda(id_usuario, valor, descricao);
-    res.status(200).send(renda);
+    const id_voluntario = req.body.id_voluntario;
+    const doacao = await controllerRoutes.createDoacao(valor, id_voluntario);
+    res.status(200).send(doacao);
 });
 
 //ROTA CREATE DESPESA
