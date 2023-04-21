@@ -7,13 +7,16 @@ var btnDoacoes = 0;
 var buttonGestaoBazar = document.getElementById("gestaoBazar");
 var btnBazar = 0;
 
+var buttonGestaoContato = document.getElementById("gestaoContato");
+var btnContato = 0;
+
 var inicioRetorno = document.getElementById("retorno");
 var inicioRetornoTable = document.getElementById("retornoTable");
 
 var gestaoV = 0;
 var gestaoD = 0;
 var gestaoB = 0;
-var gestaoM = 0;
+var gestaoC = 0;
 
 //VOLUNTÁRIOS
 buttonGestaoVoluntarios.addEventListener("click", (form) => {
@@ -26,14 +29,14 @@ buttonGestaoVoluntarios.addEventListener("click", (form) => {
         var textDoacoes = document.getElementById("cadastroDoacoes");
         textDoacoes.remove();
         btnDoacoes--;
-    }
+    };
     if(btnBazar == 1){
         var textBazar = document.getElementById("cadastroBazar");
         textBazar.remove();
         btnBazar--;
-    }
+    };
     //Remove retorno de tabelas
-    if (gestaoV > 0 || gestaoD > 0 || gestaoB){
+    if (gestaoV > 0 || gestaoD > 0 || gestaoB > 0 || gestaoC > 0){
         var tableRetorno = document.querySelector("#tableRetorno")
         var tableRetornoValores = document.querySelectorAll("#tableRetornoValores");
         tableRetorno.remove();
@@ -41,7 +44,8 @@ buttonGestaoVoluntarios.addEventListener("click", (form) => {
         gestaoV = 0;
         gestaoD = 0;
         gestaoB = 0;
-    }
+        gestaoC = 0;
+    };
     
     //Printar na tela as caixas
     inicioRetorno.insertAdjacentHTML("afterend", `
@@ -64,7 +68,7 @@ buttonGestaoVoluntarios.addEventListener("click", (form) => {
         form.preventDefault();
 
     //Remove retorno de tabelas
-    if (gestaoV > 0 || gestaoD > 0 || gestaoB){
+    if (gestaoV > 0 || gestaoD > 0 || gestaoB > 0 || gestaoC > 0){
         var tableRetorno = document.querySelector("#tableRetorno")
         var tableRetornoValores = document.querySelectorAll("#tableRetornoValores");
         tableRetorno.remove();
@@ -72,7 +76,8 @@ buttonGestaoVoluntarios.addEventListener("click", (form) => {
         gestaoV = 0;
         gestaoD = 0;
         gestaoB = 0;
-    }
+        gestaoC = 0;
+    };
 
         var campoNomeV = document.getElementById("setNomeVoluntario");
         var campoEmailV = document.getElementById("setEmailVoluntario");
@@ -141,14 +146,14 @@ buttonGestaoDoacoes.addEventListener("click", (form) => {
         var textVoluntarios = document.getElementById("cadastroVoluntarios");
         textVoluntarios.remove();
         btnVoluntarios--;
-    }
+    };
     if(btnBazar == 1){
         var textBazar = document.getElementById("cadastroBazar");
         textBazar.remove();
         btnBazar--;
-    }
+    };
     //Remove retorno de tabelas
-    if (gestaoV > 0 || gestaoD > 0 || gestaoB){
+    if (gestaoV > 0 || gestaoD > 0 || gestaoB > 0 || gestaoC > 0){
         var tableRetorno = document.querySelector("#tableRetorno")
         var tableRetornoValores = document.querySelectorAll("#tableRetornoValores");
         tableRetorno.remove();
@@ -156,7 +161,8 @@ buttonGestaoDoacoes.addEventListener("click", (form) => {
         gestaoV = 0;
         gestaoD = 0;
         gestaoB = 0;
-    }
+        gestaoC = 0;
+    };
 
     //Printar na tela as caixas
     inicioRetorno.insertAdjacentHTML("afterend", `
@@ -177,7 +183,7 @@ buttonGestaoDoacoes.addEventListener("click", (form) => {
         form.preventDefault();
 
         //Remove retorno de tabelas
-        if (gestaoV > 0 || gestaoD > 0 || gestaoB){
+        if (gestaoV > 0 || gestaoD > 0 || gestaoB > 0 || gestaoC > 0){
             var tableRetorno = document.querySelector("#tableRetorno")
             var tableRetornoValores = document.querySelectorAll("#tableRetornoValores");
             tableRetorno.remove();
@@ -185,7 +191,8 @@ buttonGestaoDoacoes.addEventListener("click", (form) => {
             gestaoV = 0;
             gestaoD = 0;
             gestaoB = 0;
-        }
+            gestaoC = 0;
+        };
    
         var campoValorD = document.getElementById("setValorDoacao");
         var campoCPFD = document.getElementById("setCPFDoacao");
@@ -197,7 +204,7 @@ buttonGestaoDoacoes.addEventListener("click", (form) => {
         if(!valorD || !cpfD || isNaN(valorD) === true || isNaN(cpfD) === true){
             console.log("dados incorretos");
             return;
-        }
+        };
 
         let allVoluntarios;
         await fetch("/voluntarios/getAllVoluntarios",{
@@ -278,14 +285,14 @@ buttonGestaoBazar.addEventListener("click", () => {
         var textVoluntarios = document.getElementById("cadastroVoluntarios");
         textVoluntarios.remove();
         btnVoluntarios--;
-    }
+    };
     if(btnDoacoes == 1){
         var textDoacoes = document.getElementById("cadastroDoacoes");
         textDoacoes.remove();
         btnDoacoes--;
-    }
+    };
     //Remove retorno de tabelas
-    if (gestaoV > 0 || gestaoD > 0 || gestaoB){
+    if (gestaoV > 0 || gestaoD > 0 || gestaoB > 0 || gestaoC > 0){
         var tableRetorno = document.querySelector("#tableRetorno")
         var tableRetornoValores = document.querySelectorAll("#tableRetornoValores");
         tableRetorno.remove();
@@ -293,7 +300,8 @@ buttonGestaoBazar.addEventListener("click", () => {
         gestaoV = 0;
         gestaoD = 0;
         gestaoB = 0;
-    }
+        gestaoC = 0;
+    };
 
     //Printar na tela as caixas
     inicioRetorno.insertAdjacentHTML("afterend", `
@@ -313,7 +321,7 @@ buttonGestaoBazar.addEventListener("click", () => {
     btnInserirB.addEventListener("click", async(form) => {
         form.preventDefault();
         //Remove retorno de tabelas
-        if (gestaoV > 0 || gestaoD > 0 || gestaoB){
+        if (gestaoV > 0 || gestaoD > 0 || gestaoB > 0 || gestaoC > 0){
             var tableRetorno = document.querySelector("#tableRetorno")
             var tableRetornoValores = document.querySelectorAll("#tableRetornoValores");
             tableRetorno.remove();
@@ -321,7 +329,8 @@ buttonGestaoBazar.addEventListener("click", () => {
             gestaoV = 0;
             gestaoD = 0;
             gestaoB = 0;
-        }
+            gestaoC = 0;
+        };
 
         var campoDescricaoB = document.getElementById("setDescricaoBazar");
         var campoCPFB = document.getElementById("setCPFBazar");
@@ -402,4 +411,57 @@ buttonGestaoBazar.addEventListener("click", () => {
         };
         gestaoB++;
     });
+});
+
+buttonGestaoContato.addEventListener("click", async(form) => {
+    form.preventDefault();
+    if(btnContato > 0) return;
+
+    //Remover mensagens anteriores
+    if(btnVoluntarios == 1){
+        var textVoluntarios = document.getElementById("cadastroVoluntarios");
+        textVoluntarios.remove();
+        btnVoluntarios--;
+    }
+    if(btnDoacoes == 1){
+        var textDoacoes = document.getElementById("cadastroDoacoes");
+        textDoacoes.remove();
+        btnDoacoes--;
+    }
+    if(btnBazar == 1){
+        var textBazar = document.getElementById("cadastroBazar");
+        textBazar.remove();
+        btnBazar--;
+    };
+
+    //Remove retorno de tabelas
+    if (gestaoV > 0 || gestaoD > 0 || gestaoB > 0 || gestaoC > 0){
+        var tableRetorno = document.querySelector("#tableRetorno")
+        var tableRetornoValores = document.querySelectorAll("#tableRetornoValores");
+        tableRetorno.remove();
+        tableRetornoValores.forEach(element => element.remove());
+        gestaoV = 0;
+        gestaoD = 0;
+        gestaoB = 0;
+        gestaoC = 0;
+    };
+
+    let allContato;
+    await fetch("/contato/getAllContato",{
+        method: "GET"
+        })
+        .then(response => response.json())          
+        .then(json => allContato = json);
+    
+    //Printa na tela uma tabela com os dados do Bazar
+    inicioRetornoTable.insertAdjacentHTML("afterbegin", `<tr id="tableRetorno"><td style="font-weight: bold;">Nome</td><td style="font-weight: bold;">Email</td><td style="font-weight: bold;">Telefone</td><td style="font-weight: bold;">Tipo de Contato</td><td style="font-weight: bold;">Mensagem</td><td style="font-weight: bold;">Data</td></tr>            
+    `);
+    
+    for(var i = (allContato.length - 1); i > -1; i--){
+        let data = new Date(allContato[i].datahora)
+        let dataFormatada = ((data.getDate() + "/" + ((data.getMonth() + 1)) + "/" + data.getFullYear()));
+
+        inicioRetornoTable.insertAdjacentHTML("beforeend", `<tr id="tableRetornoValores"><td>${allContato[i].nome}</td><td>${allContato[i].email}</td><td>${allContato[i].telefone}</td><td>${allContato[i].tipocontato}</td><td>${allContato[i].mensagem}</td><td>${dataFormatada}</td></tr>`);
+    };
+    gestaoC++;
 });

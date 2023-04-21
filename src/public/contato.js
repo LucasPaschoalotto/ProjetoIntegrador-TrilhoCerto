@@ -15,7 +15,7 @@ enviar.addEventListener("click", async() => {
     if(campoMotivoVoluntario.checked){
         tipoContato = "Voluntário";
     } else if(campoMotivoApadrinhamento.checked){
-        tipoContato = "Apadrinhamento";
+        tipoContato = "Apadrinhamento/Doações";
     } else if(campoMotivoInformacoes.checked){
         tipoContato = "Informações";
     }

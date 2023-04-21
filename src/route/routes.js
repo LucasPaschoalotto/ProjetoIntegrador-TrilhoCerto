@@ -112,4 +112,10 @@ rota.get("/bazar/getAllBazar", async(req, res) => {
     res.status(200).send(getBazar);
 });
 
+//ROTA READ ALL Contato
+rota.get("/contato/getAllContato", async(req, res) => {
+    const getContato = await controllerRoutes.findAllContato();
+    res.status(200).send(getContato);
+});
+
 export default rota;

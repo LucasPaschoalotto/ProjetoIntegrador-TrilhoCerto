@@ -92,6 +92,18 @@ class RouteController{
         
         return rows || [];
     }
+
+    //Método para listar todo os contatos
+    async findAllContato(){
+        const findContato = `
+        SELECT nome, email, telefone, mensagem, tipocontato, datahora 
+        FROM contato
+        `;
+
+        const {rows} = await dataBase.query(findContato);
+        
+        return rows || [];
+    }
 }
 
 export default new RouteController();
