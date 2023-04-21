@@ -1,6 +1,7 @@
 var enviar = document.getElementById("formEnviar");
 
 enviar.addEventListener("click", async() => {
+    let tipoContato;
     var campoMotivoVoluntario = document.getElementById("radio-voluntario");
     var campoMotivoApadrinhamento = document.getElementById("radio-apadrinhamento");
     var campoMotivoInformacoes = document.getElementById("radio-informacoes");
@@ -10,19 +11,19 @@ enviar.addEventListener("click", async() => {
     var telefone = document.getElementById("telefone").value;
     var mensagem = document.getElementById("mensagem").value;
 
-    console.log(email)
-    console.log(telefone)
-    console.log(mensagem)
-
+    //Verificar qual o tipo de contato
     if(campoMotivoVoluntario.checked){
-        console.log("motivoVoluntario");
+        tipoContato = "Voluntário";
     } else if(campoMotivoApadrinhamento.checked){
-        console.log("motivoApadrinhamento");
+        tipoContato = "Apadrinhamento";
     } else if(campoMotivoInformacoes.checked){
-        console.log("motivoinfos")
+        tipoContato = "Informações";
     }
 
-    await fetch('/mensagem', {
+    //Verificar se os campos estão preenchidos
+    if(!nome || !email || !telefone || !mensagem || isNaN(nome) === false || isNaN(email) === false || isNaN(telefone) === true) return;
+
+    await fetch('/contato', {
         method: 'POST',
         headers: {
         'Accept': 'application/json',
