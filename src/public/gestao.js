@@ -32,6 +32,7 @@ buttonGestaoVoluntarios.addEventListener("click", (form) => {
         textBazar.remove();
         btnBazar--;
     }
+    //Remove retorno de tabelas
     if (gestaoV > 0 || gestaoD > 0){
         var tableRetorno = document.querySelector("#tableRetorno")
         var tableRetornoValores = document.querySelectorAll("#tableRetornoValores");
@@ -57,8 +58,11 @@ buttonGestaoVoluntarios.addEventListener("click", (form) => {
     var btnInserirV = document.getElementById("inserirVoluntario");
     var btnExibirV = document.getElementById("exibirVoluntarios");
 
+    //Inserir Voluntários
     btnInserirV.addEventListener("click", async(form) => {
         form.preventDefault();
+
+    //Remove retorno de tabelas
         if (gestaoV > 0 || gestaoD > 0){
             var tableRetorno = document.querySelector("#tableRetorno")
             var tableRetornoValores = document.querySelectorAll("#tableRetornoValores");
@@ -78,6 +82,7 @@ buttonGestaoVoluntarios.addEventListener("click", (form) => {
         var cpfV = campoCPFV.value;
         var telefoneV = campoTelefoneV.value;
 
+        //Verifica se os dados estão corretos
         if(!nomeV || !emailV || !cpfV || !telefoneV || isNaN(cpfV) === true || isNaN(telefoneV) === true){
             console.log("dados incorretos");
             return;
@@ -92,12 +97,14 @@ buttonGestaoVoluntarios.addEventListener("click", (form) => {
         body: JSON.stringify({nome: nomeV, email: emailV, cpf: cpfV, telefone: telefoneV})
         });
 
+        //Limpa os campos
         campoNomeV.value = "";
         campoEmailV.value = "";
         campoCPFV.value = "";
         campoTelefoneV.value = "";
     });
 
+    //Exibir todos os voluntários
     btnExibirV.addEventListener("click", async(form) => {
         form.preventDefault();
 
@@ -109,9 +116,10 @@ buttonGestaoVoluntarios.addEventListener("click", (form) => {
             })
             .then(response => response.json())          
             .then(json => allVoluntarios = json);
-            
-            inicioRetornoTable.insertAdjacentHTML("afterbegin", `<tr id="tableRetorno"><td style="font-weight: bold;">Nome</td><td style="font-weight: bold;">Email</td><td style="font-weight: bold;">CPF</td><td style="font-weight: bold;">Telefone</td></tr>            
-            `);
+        
+        //Printa na tela uma tabela com os dados dos voluntários
+        inicioRetornoTable.insertAdjacentHTML("afterbegin", `<tr id="tableRetorno"><td style="font-weight: bold;">Nome</td><td style="font-weight: bold;">Email</td><td style="font-weight: bold;">CPF</td><td style="font-weight: bold;">Telefone</td></tr>            
+        `);
         for(var i=0; i < allVoluntarios.length; i++){
             inicioRetornoTable.insertAdjacentHTML("beforeend", `<tr id="tableRetornoValores"><td>${allVoluntarios[i].nome}</td><td>${allVoluntarios[i].email}</td><td>${allVoluntarios[i].cpf}</td><td>${allVoluntarios[i].cpf}</td></tr>`);
         };
@@ -132,11 +140,13 @@ buttonGestaoDoacoes.addEventListener("click", (form) => {
         textVoluntarios.remove();
         btnVoluntarios--;
     }
+    //D
     if(btnBazar == 1){
         var textBazar = document.getElementById("cadastroBazar");
         textBazar.remove();
         btnBazar--;
     }
+    //Remove retorno de tabelas
     if (gestaoV > 0 || gestaoD > 0){
         var tableRetorno = document.querySelector("#tableRetorno")
         var tableRetornoValores = document.querySelectorAll("#tableRetornoValores");
@@ -160,9 +170,11 @@ buttonGestaoDoacoes.addEventListener("click", (form) => {
     var btnInserirD = document.getElementById("inserirDoacao");
     var btnExibirD = document.getElementById("exibirDoacoes");
 
+    //Inserir Doações
     btnInserirD.addEventListener("click", async(form) => {
         form.preventDefault();
 
+        //Remove retorno de tabelas
         if (gestaoV > 0 || gestaoD > 0){
             var tableRetorno = document.querySelector("#tableRetorno")
             var tableRetornoValores = document.querySelectorAll("#tableRetornoValores");
@@ -178,6 +190,7 @@ buttonGestaoDoacoes.addEventListener("click", (form) => {
         var valorD = campoValorD.value;
         var cpfD = campoCPFD.value;
 
+        //Verifica se os dados inseridos estão corretos
         if(!valorD || !cpfD || isNaN(valorD) === true || isNaN(cpfD) === true){
             console.log("dados incorretos");
             return;
@@ -207,10 +220,12 @@ buttonGestaoDoacoes.addEventListener("click", (form) => {
         body: JSON.stringify({valor: valorD, id_voluntario: voluntarioID})
         });
 
+        //Limpa os campos
         campoValorD.value = "";
         campoCPFD.value = "";
     });
 
+    //Exibir todas as doações
     btnExibirD.addEventListener("click", async(form) => {
         form.preventDefault();
 
@@ -229,10 +244,12 @@ buttonGestaoDoacoes.addEventListener("click", (form) => {
             })
             .then(response => response.json())          
             .then(json => allDoacoes = json);
-
+        
+        //Printa na tela uma tabela com os dados dos voluntários
         inicioRetornoTable.insertAdjacentHTML("afterbegin", `<tr id="tableRetorno"><td style="font-weight: bold;">Nome</td><td style="font-weight: bold;">Valor da Doação</td><td style="font-weight: bold;">Data</td></tr>            
         `);
 
+        //Verifica, a partir do cpf, o nome do usuário responsável pela doação
         let doacaoNome;
         for(var i=0; i < allDoacoes.length; i++){
             let data = new Date(allDoacoes[i].datahora)
