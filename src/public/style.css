@@ -196,25 +196,15 @@ form legend {
 	background: #0675ca;
 }
 
-table {
-	align-items: center;
-	margin: 50px 20px 20px 20px;
-	background-color: #F5F5FA;
-}
-
-td {
-	border: 1px solid #000000;
-	padding: 8px 20px;
-}
-
 #qrcode {
 	width: 350px;
 	float: left;
 	margin: 20px;
 }
 
+/*css do sistema interno*/
 #login{
-    display: flex;
+	display: flex;
     justify-content: center;
     height: 10em;
     flex-direction: row;
@@ -229,12 +219,7 @@ td {
     flex-direction: row;
     flex-wrap: wrap;
     align-items: center;
-}
-
-#cadastroVoluntarios{
-	height: 40px;
-	padding: 10px;
-	margin: 15px;
+	margin: 0px;
 }
 
 #setUsuario, #setSenha, #logarUsuario, #gestaoVoluntarios, #gestaoDoacoes, #gestaoBazar {
@@ -249,13 +234,15 @@ td {
 #cadastroVoluntarios, #cadastroDoacoes, #cadastroBazar {
 	display: flex;
     justify-content: center;
-    height: 1em;
     flex-direction: row;
     flex-wrap: wrap;
     align-items: stretch;
     text-align: center;
     font-size: 18px;
     font-weight: bold;
+	padding: 1rem;
+	width: auto;
+	margin: 0.75rem auto;
 }
 
 #setNomeVoluntario, #setEmailVoluntario, #setCPFVoluntario, #setTelefoneVoluntario, #inserirVoluntario, #exibirVoluntarios, #setValorDoacao, #setCPFDoacao, #inserirDoacao, #exibirDoacoes, #setDescricaoBazar, #setCPFBazar, #inserirBazar, #exibirBazar {
@@ -265,6 +252,18 @@ td {
     border-style: solid;
     text-align: center;
 	font-size: 15px;
+}
+
+#retornoTable {
+	width: auto;
+	align-items: center;
+	margin: .75rem auto;
+	background-color: #F5F5FA;
+}
+
+td {
+	border: 1px solid #000000;
+	padding: 8px 20px;
 }
 
 @media screen and (max-width: 1250px) {
@@ -290,8 +289,7 @@ td {
 		width: 100%;
 	}
 
-	form,
-	table {
+	form, #retornoTable {
 		width: auto;
 		margin: .75rem auto;
 	}
