@@ -33,3 +33,13 @@ CONSTRAINT pk_bazar PRIMARY KEY (uuid)
 
 CREATE INDEX ix_bazar_01 ON bazar USING btree (id_voluntario);
 ALTER TABLE bazar ADD CONSTRAINT fk_bazar_01 FOREIGN KEY (id_voluntario) REFERENCES voluntarios (uuid);
+
+CREATE TABLE IF NOT EXISTS contato(
+uuid uuid DEFAULT uuid_generate_v4(),
+nome varchar(100) NOT NULL,
+email varchar(100) NOT NULL,
+telefone bigserial NOT NULL,
+mensagem varchar(500) NOT NULL,
+tipoContato varchar(100) NOT NULL,
+datahora timestamptz NOT NULL DEFAULT now()
+);
