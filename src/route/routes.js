@@ -76,7 +76,7 @@ rota.post("/doacoes", async (req, res) => {
 rota.post("/bazar", async (req, res) => {
     const descricao = req.body.descricao;
     const id_voluntario = req.body.id_voluntario;
-    const bazar = await controllerRoutes.createDespesa(descricao, id_voluntario);
+    const bazar = await controllerRoutes.createBazar(descricao, id_voluntario);
     res.status(200).send(bazar);
 });
 

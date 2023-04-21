@@ -33,13 +33,14 @@ buttonGestaoVoluntarios.addEventListener("click", (form) => {
         btnBazar--;
     }
     //Remove retorno de tabelas
-    if (gestaoV > 0 || gestaoD > 0){
+    if (gestaoV > 0 || gestaoD > 0 || gestaoB){
         var tableRetorno = document.querySelector("#tableRetorno")
         var tableRetornoValores = document.querySelectorAll("#tableRetornoValores");
         tableRetorno.remove();
         tableRetornoValores.forEach(element => element.remove());
         gestaoV = 0;
         gestaoD = 0;
+        gestaoB = 0;
     }
     
     //Printar na tela as caixas
@@ -63,14 +64,15 @@ buttonGestaoVoluntarios.addEventListener("click", (form) => {
         form.preventDefault();
 
     //Remove retorno de tabelas
-        if (gestaoV > 0 || gestaoD > 0){
-            var tableRetorno = document.querySelector("#tableRetorno")
-            var tableRetornoValores = document.querySelectorAll("#tableRetornoValores");
-            tableRetorno.remove();
-            tableRetornoValores.forEach(element => element.remove());
-            gestaoV = 0;
-            gestaoD = 0;
-        }
+    if (gestaoV > 0 || gestaoD > 0 || gestaoB){
+        var tableRetorno = document.querySelector("#tableRetorno")
+        var tableRetornoValores = document.querySelectorAll("#tableRetornoValores");
+        tableRetorno.remove();
+        tableRetornoValores.forEach(element => element.remove());
+        gestaoV = 0;
+        gestaoD = 0;
+        gestaoB = 0;
+    }
 
         var campoNomeV = document.getElementById("setNomeVoluntario");
         var campoEmailV = document.getElementById("setEmailVoluntario");
@@ -140,20 +142,20 @@ buttonGestaoDoacoes.addEventListener("click", (form) => {
         textVoluntarios.remove();
         btnVoluntarios--;
     }
-    //D
     if(btnBazar == 1){
         var textBazar = document.getElementById("cadastroBazar");
         textBazar.remove();
         btnBazar--;
     }
     //Remove retorno de tabelas
-    if (gestaoV > 0 || gestaoD > 0){
+    if (gestaoV > 0 || gestaoD > 0 || gestaoB){
         var tableRetorno = document.querySelector("#tableRetorno")
         var tableRetornoValores = document.querySelectorAll("#tableRetornoValores");
         tableRetorno.remove();
         tableRetornoValores.forEach(element => element.remove());
         gestaoV = 0;
         gestaoD = 0;
+        gestaoB = 0;
     }
 
     //Printar na tela as caixas
@@ -175,13 +177,14 @@ buttonGestaoDoacoes.addEventListener("click", (form) => {
         form.preventDefault();
 
         //Remove retorno de tabelas
-        if (gestaoV > 0 || gestaoD > 0){
+        if (gestaoV > 0 || gestaoD > 0 || gestaoB){
             var tableRetorno = document.querySelector("#tableRetorno")
             var tableRetornoValores = document.querySelectorAll("#tableRetornoValores");
             tableRetorno.remove();
             tableRetornoValores.forEach(element => element.remove());
             gestaoV = 0;
             gestaoD = 0;
+            gestaoB = 0;
         }
    
         var campoValorD = document.getElementById("setValorDoacao");
@@ -245,7 +248,7 @@ buttonGestaoDoacoes.addEventListener("click", (form) => {
             .then(response => response.json())          
             .then(json => allDoacoes = json);
         
-        //Printa na tela uma tabela com os dados dos voluntários
+        //Printa na tela uma tabela com os dados das doações
         inicioRetornoTable.insertAdjacentHTML("afterbegin", `<tr id="tableRetorno"><td style="font-weight: bold;">Nome</td><td style="font-weight: bold;">Valor da Doação</td><td style="font-weight: bold;">Data</td></tr>            
         `);
 
@@ -257,8 +260,6 @@ buttonGestaoDoacoes.addEventListener("click", (form) => {
 
             for(var j=0; j < allVoluntarios.length; j++){
                 if (allDoacoes[i].id_voluntario == allVoluntarios[j].uuid){
-                    console.log(allDoacoes[i].id_voluntario);
-                    console.log(allVoluntarios[j].uuid)
                     doacaoNome = allVoluntarios[j].nome;
                 };
             };
@@ -283,13 +284,15 @@ buttonGestaoBazar.addEventListener("click", () => {
         textDoacoes.remove();
         btnDoacoes--;
     }
-    if (gestaoV > 0 || gestaoD > 0){
+    //Remove retorno de tabelas
+    if (gestaoV > 0 || gestaoD > 0 || gestaoB){
         var tableRetorno = document.querySelector("#tableRetorno")
         var tableRetornoValores = document.querySelectorAll("#tableRetornoValores");
         tableRetorno.remove();
         tableRetornoValores.forEach(element => element.remove());
         gestaoV = 0;
         gestaoD = 0;
+        gestaoB = 0;
     }
 
     //Printar na tela as caixas
@@ -302,4 +305,101 @@ buttonGestaoBazar.addEventListener("click", () => {
         </form>
         `);
     btnBazar++;
+
+    var btnInserirB = document.getElementById("inserirBazar");
+    var btnExibirB = document.getElementById("exibirBazar");
+
+    //Inserir Bazar
+    btnInserirB.addEventListener("click", async(form) => {
+        form.preventDefault();
+        //Remove retorno de tabelas
+        if (gestaoV > 0 || gestaoD > 0 || gestaoB){
+            var tableRetorno = document.querySelector("#tableRetorno")
+            var tableRetornoValores = document.querySelectorAll("#tableRetornoValores");
+            tableRetorno.remove();
+            tableRetornoValores.forEach(element => element.remove());
+            gestaoV = 0;
+            gestaoD = 0;
+            gestaoB = 0;
+        }
+
+        var campoDescricaoB = document.getElementById("setDescricaoBazar");
+        var campoCPFB = document.getElementById("setCPFBazar");
+
+        var descricaoB = campoDescricaoB.value;
+        var cpfB = campoCPFB.value;
+
+        //Verifica se os dados inseridos estão corretos
+        if(!descricaoB || !cpfB || isNaN(descricaoB) === false || isNaN(cpfB) === true){
+            console.log("dados incorretos");
+            return;
+        }
+
+        let allVoluntarios;
+        await fetch("/voluntarios/getAllVoluntarios",{
+            method: "GET"
+            })
+            .then(response => response.json())          
+            .then(json => allVoluntarios = json);
+
+        let voluntarioID = cpfB;
+        for(var i=0; i < allVoluntarios.length; i++){
+            if(cpfB == allVoluntarios[i].cpf){
+                voluntarioID = allVoluntarios[i].uuid;
+            };
+        };
+
+        await fetch('/bazar', {
+            method: 'POST',
+            headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({descricao: descricaoB, id_voluntario: voluntarioID})
+        });
+    
+        //Limpa os campos
+        campoDescricaoB.value = "";
+        campoCPFB.value = "";
+    });
+
+    //Exibir todos os itens do Bazar
+    btnExibirB.addEventListener("click", async(form) => {
+        form.preventDefault();
+
+        if (gestaoB > 0) return;
+
+        let allVoluntarios;
+        await fetch("/voluntarios/getAllVoluntarios",{
+            method: "GET"
+            })
+            .then(response => response.json())          
+            .then(json => allVoluntarios = json);
+   
+        let allBazar;
+        await fetch("/bazar/getAllBazar",{
+            method: "GET"
+            })
+            .then(response => response.json())          
+            .then(json => allBazar = json);
+        
+        //Printa na tela uma tabela com os dados do Bazar
+        inicioRetornoTable.insertAdjacentHTML("afterbegin", `<tr id="tableRetorno"><td style="font-weight: bold;">Nome</td><td style="font-weight: bold;">Descrição do Item</td><td style="font-weight: bold;">Data</td></tr>            
+        `);
+
+        //Verifica, a partir do cpf, o nome do usuário responsável pelo item do bazar
+        let bazarNome;
+        for(var i=0; i < allBazar.length; i++){
+            let data = new Date(allBazar[i].datahora)
+            let dataFormatada = ((data.getDate() + "/" + ((data.getMonth() + 1)) + "/" + data.getFullYear()));
+
+            for(var j=0; j < allVoluntarios.length; j++){
+                if (allBazar[i].id_voluntario == allVoluntarios[j].uuid){
+                    bazarNome = allVoluntarios[j].nome;
+                };
+            };
+            inicioRetornoTable.insertAdjacentHTML("beforeend", `<tr id="tableRetornoValores"><td>${bazarNome}</td><td>${allBazar[i].descricao}</td><td>${dataFormatada}</td></tr>`);
+        };
+        gestaoB++;
+    });
 });
