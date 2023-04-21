@@ -43,6 +43,20 @@ class RouteController{
         return newBazar;
     }
 
+    //Método para criar contato
+    async createContato(nome, email, telefone, mensagem, tipoContato){
+        const createContato = `
+        INSERT INTO contato (nome, email, telefone, mensagem, tipoContato)
+        VALUES ($1, $2, $3, $4, $5)
+        `;
+        
+        const createContatoValues = [nome, email, telefone, mensagem, tipoContato];
+        const {rows} = await dataBase.query(createContato, createContatoValues);
+        const [newContato] = rows;
+    
+        return newContato;
+    }
+
     //Método para listar todo os voluntários
     async findAllVoluntarios(){
         const findVoluntarios = `

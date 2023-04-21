@@ -222,7 +222,7 @@ form legend {
 	margin: 0px;
 }
 
-#setUsuario, #setSenha, #logarUsuario, #gestaoVoluntarios, #gestaoDoacoes, #gestaoBazar {
+#setUsuario, #setSenha, #logarUsuario, #gestaoVoluntarios, #gestaoDoacoes, #gestaoBazar, #gestaoMensagem {
 	margin: 5px;
     border-radius: 5px;
     border-color: #0675ca;

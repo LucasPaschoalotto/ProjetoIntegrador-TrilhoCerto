@@ -45,14 +45,6 @@
 				<textarea cols="70" rows="10" id="mensagem" class="input-padrao"></textarea>
 
 				<input type="submit" value="Enviar formulário" class="enviar" id="formEnviar">
-				<script>
-					var enviar = document.getElementById("formEnviar");
-					enviar.addEventListener("click", () => {
-						var nome = document.getElementById("nomesobrenome").value;
-						alert(`Mensagem de ${nome} enviada com sucesso!`);
-					})
-				</script>
-
 			</form>
 		</main>
 
@@ -62,3 +54,5 @@
 		</footer>
 	</body>
 </html>
+
+<script type="module" src="./contato.js"></script>

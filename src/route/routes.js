@@ -16,6 +16,9 @@ rota.get("/doacao.html", (req, res) => {
 rota.get("/contato.html", (req, res) => {
     res.sendFile("contato.html", {root: './src/public'});
 });
+rota.get("/contato.js", (req, res) => {
+    res.sendFile("contato.js", {root: './src/public'});
+});
 rota.get("/login.html", (req, res) => {
     res.sendFile("login.html", {root: './src/public'});
 });
@@ -78,6 +81,17 @@ rota.post("/bazar", async (req, res) => {
     const id_voluntario = req.body.id_voluntario;
     const bazar = await controllerRoutes.createBazar(descricao, id_voluntario);
     res.status(200).send(bazar);
+});
+
+//ROTA CREATE MENSAGEM
+rota.post("/contato", async (req, res) => {
+    const nome = req.body.nome;
+    const email = req.body.email;
+    const telefone = req.body.telefone;
+    const mensagem = req.body.mensagem;
+    const tipoContato = req.body.tipoContato;
+    const contato = await controllerRoutes.createContato(nome, email, telefone, mensagem, tipoContato);
+    res.status(200).send(contato);
 });
 
 //ROTA READ ALL Voluntarios
