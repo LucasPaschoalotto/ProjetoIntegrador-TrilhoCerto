@@ -268,11 +268,7 @@ td {
 
 @media screen and (max-width: 1250px) {
 
-	.caixa,
-	.principal,
-	.conteudo-animais,
-	.local-conteudo,
-	.video {
+	.caixa,	.principal,	.conteudo-animais, .local-conteudo,	.video {
 		width: auto;
 	}
 
@@ -281,11 +277,17 @@ td {
 	}
 
 	nav {
-		position: static;
+		position:relative;
+		align-items: center;
 	}
 
-	.lista-animais,
-	.imagem-animais {
+	nav a{
+		align-items: center;
+		flex-direction: column;
+		flex-wrap: wrap;
+	}
+
+	.lista-animais, .imagem-animais {
 		width: 100%;
 	}
 
