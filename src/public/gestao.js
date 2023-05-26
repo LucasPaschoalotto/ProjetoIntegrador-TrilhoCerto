@@ -10,6 +10,9 @@ var btnBazar = 0;
 var buttonGestaoContato = document.getElementById("gestaoContato");
 var btnContato = 0;
 
+var buttonGestaoRelatorios = document.getElementById("gestaoRelatorios");
+var btnRelatorios = 0;
+
 var inicioRetorno = document.getElementById("retorno");
 var inicioRetornoTable = document.getElementById("retornoTable");
 
@@ -17,6 +20,7 @@ var gestaoV = 0;
 var gestaoD = 0;
 var gestaoB = 0;
 var gestaoC = 0;
+var gestaoR = 0;
 
 //VOLUNTÁRIOS
 buttonGestaoVoluntarios.addEventListener("click", (form) => {
@@ -34,6 +38,13 @@ buttonGestaoVoluntarios.addEventListener("click", (form) => {
         var textBazar = document.getElementById("cadastroBazar");
         textBazar.remove();
         btnBazar--;
+    };
+    if (gestaoR == 1){
+        var tipoR = document.getElementById("tipoRelatorio");
+        var periodoR = document.getElementById("periodoRelatorio");
+        tipoR.remove();
+        periodoR.remove();
+        gestaoR--;
     };
     //Remove retorno de tabelas
     if (gestaoV > 0 || gestaoD > 0 || gestaoB > 0 || gestaoC > 0){
@@ -151,6 +162,13 @@ buttonGestaoDoacoes.addEventListener("click", (form) => {
         var textBazar = document.getElementById("cadastroBazar");
         textBazar.remove();
         btnBazar--;
+    };
+    if (gestaoR == 1){
+        var tipoR = document.getElementById("tipoRelatorio");
+        var periodoR = document.getElementById("periodoRelatorio");
+        tipoR.remove();
+        periodoR.remove();
+        gestaoR--;
     };
     //Remove retorno de tabelas
     if (gestaoV > 0 || gestaoD > 0 || gestaoB > 0 || gestaoC > 0){
@@ -290,6 +308,13 @@ buttonGestaoBazar.addEventListener("click", () => {
         var textDoacoes = document.getElementById("cadastroDoacoes");
         textDoacoes.remove();
         btnDoacoes--;
+    };
+    if (gestaoR == 1){
+        var tipoR = document.getElementById("tipoRelatorio");
+        var periodoR = document.getElementById("periodoRelatorio");
+        tipoR.remove();
+        periodoR.remove();
+        gestaoR--;
     };
     //Remove retorno de tabelas
     if (gestaoV > 0 || gestaoD > 0 || gestaoB > 0 || gestaoC > 0){
@@ -433,6 +458,13 @@ buttonGestaoContato.addEventListener("click", async(form) => {
         textBazar.remove();
         btnBazar--;
     };
+    if (gestaoR == 1){
+        var tipoR = document.getElementById("tipoRelatorio");
+        var periodoR = document.getElementById("periodoRelatorio");
+        tipoR.remove();
+        periodoR.remove();
+        gestaoR--;
+    };
 
     //Remove retorno de tabelas
     if (gestaoV > 0 || gestaoD > 0 || gestaoB > 0 || gestaoC > 0){
@@ -464,4 +496,64 @@ buttonGestaoContato.addEventListener("click", async(form) => {
         inicioRetornoTable.insertAdjacentHTML("beforeend", `<tr id="tableRetornoValores"><td>${allContato[i].nome}</td><td>${allContato[i].email}</td><td>${allContato[i].telefone}</td><td>${allContato[i].tipocontato}</td><td>${allContato[i].mensagem}</td><td>${dataFormatada}</td></tr>`);
     };
     gestaoC++;
+});
+
+//RELATÓRIOS
+buttonGestaoRelatorios.addEventListener("click", () => {
+    if(btnRelatorios > 0) return;
+
+    //Remover mensagens anteriores
+    if(btnVoluntarios == 1){
+        var textVoluntarios = document.getElementById("cadastroVoluntarios");
+        textVoluntarios.remove();
+        btnVoluntarios--;
+    };
+    if(btnDoacoes == 1){
+        var textDoacoes = document.getElementById("cadastroDoacoes");
+        textDoacoes.remove();
+        btnDoacoes--;
+    };
+    if(btnBazar == 1){
+        var textBazar = document.getElementById("cadastroBazar");
+        textBazar.remove();
+        btnBazar--;
+    };
+    //Remove retorno de tabelas
+    if (gestaoV > 0 || gestaoD > 0 || gestaoB > 0 || gestaoC > 0){
+        var tableRetorno = document.querySelector("#tableRetorno")
+        var tableRetornoValores = document.querySelectorAll("#tableRetornoValores");
+        tableRetorno.remove();
+        tableRetornoValores.forEach(element => element.remove());
+        gestaoV = 0;
+        gestaoD = 0;
+        gestaoB = 0;
+        gestaoC = 0;
+    };
+
+     //Printar na tela as caixas
+     inicioRetorno.insertAdjacentHTML("afterend", `
+     <div id="relatorios">
+     <fieldset id="tipoRelatorio">
+        <legend>Tipo de relatórios:</legend>
+        <select id="tipoRelatorios">
+            <option>Voluntários</option>
+            <option>Doações</option>
+            <option>Itens do Bazar</option>
+            <option>Mensagens</option>
+        </select>
+    </fieldset>
+    <fieldset id="periodoRelatorio">
+        <legend>Tipo de relatórios:</legend>
+        <select id="periodoRelatorios">
+            <option>Voluntários</option>
+            <option>Doações</option>
+            <option>Itens do Bazar</option>
+            <option>Mensagens</option>
+        </select>
+   </fieldset>
+   <button id="gerarRelatorio">Gerar Relatório</button>
+   </div>
+    `);
+
+    gestaoR++;
 });

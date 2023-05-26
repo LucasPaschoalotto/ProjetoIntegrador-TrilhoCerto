@@ -222,7 +222,7 @@ form legend {
 	margin: 0px;
 }
 
-#setUsuario, #setSenha, #logarUsuario, #gestaoVoluntarios, #gestaoDoacoes, #gestaoBazar, #gestaoContato {
+#setUsuario, #setSenha, #logarUsuario, #gestaoVoluntarios, #gestaoDoacoes, #gestaoBazar, #gestaoContato, #gestaoRelatorios, #tipoRelatorios, #periodoRelatorios {
 	margin: 5px;
     border-radius: 5px;
     border-color: #0675ca;
@@ -231,7 +231,8 @@ form legend {
 	font-size: 18px;
 }
 
-#cadastroVoluntarios, #cadastroDoacoes, #cadastroBazar {
+
+#cadastroVoluntarios, #cadastroDoacoes, #cadastroBazar, #relatorios{
 	display: flex;
     justify-content: center;
     flex-direction: row;
@@ -245,7 +246,11 @@ form legend {
 	margin: 0.75rem auto;
 }
 
-#setNomeVoluntario, #setEmailVoluntario, #setCPFVoluntario, #setTelefoneVoluntario, #inserirVoluntario, #exibirVoluntarios, #setValorDoacao, #setCPFDoacao, #inserirDoacao, #exibirDoacoes, #setDescricaoBazar, #setCPFBazar, #inserirBazar, #exibirBazar {
+#tipoRelatorio, #periodoRelatorio{
+	margin: 20px;
+}
+
+#setNomeVoluntario, #setEmailVoluntario, #setCPFVoluntario, #setTelefoneVoluntario, #inserirVoluntario, #exibirVoluntarios, #setValorDoacao, #setCPFDoacao, #inserirDoacao, #exibirDoacoes, #setDescricaoBazar, #setCPFBazar, #inserirBazar, #exibirBazar, #gerarRelatorio {
 	margin: 5px;
     border-radius: 5px;
     border-color: #0675ca;
