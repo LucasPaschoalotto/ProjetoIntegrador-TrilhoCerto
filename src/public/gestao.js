@@ -418,7 +418,7 @@ buttonGestaoBazar.addEventListener("click", () => {
             .then(json => allBazar = json);
         
         //Printa na tela uma tabela com os dados do Bazar
-        inicioRetornoTable.insertAdjacentHTML("afterbegin", `<tr id="tableRetorno"><td style="font-weight: bold;">Nome</td><td style="font-weight: bold;">Descrição do Item</td><td style="font-weight: bold;">Data</td></tr>            
+        inicioRetornoTable.insertAdjacentHTML("afterbegin", `<tr id="tableRetorno"><td style="font-weight: bold;">Nome</td><td style="font-weight: bold;">Descrição do Item</td><td style="font-weight: bold;">Data</td><td style="font-weight: bold;">Excluir</td></tr>            
         `);
 
         //Verifica, a partir do cpf, o nome do usuário responsável pelo item do bazar
@@ -426,14 +426,26 @@ buttonGestaoBazar.addEventListener("click", () => {
         for(var i=0; i < allBazar.length; i++){
             let data = new Date(allBazar[i].datahora)
             let dataFormatada = ((data.getDate() + "/" + ((data.getMonth() + 1)) + "/" + data.getFullYear()));
-
+            
             for(var j=0; j < allVoluntarios.length; j++){
                 if (allBazar[i].id_voluntario == allVoluntarios[j].uuid){
                     bazarNome = allVoluntarios[j].nome;
                 };
             };
-            inicioRetornoTable.insertAdjacentHTML("beforeend", `<tr id="tableRetornoValores"><td>${bazarNome}</td><td>${allBazar[i].descricao}</td><td>${dataFormatada}</td></tr>`);
+            inicioRetornoTable.insertAdjacentHTML("beforeend", `<tr id="tableRetornoValores"><td>${bazarNome}</td><td>${allBazar[i].descricao}</td><td>${dataFormatada}</td><td><button class="excluirItem" id="idExclusao">X</button></td></tr>`);
+            let btnExclusao = document.getElementById("idExclusao");
+            btnExclusao.id = i;            
         };
+
+        //Implementa a exclusão de itens do Bazar pelo botão
+        var btnExcluir = document.getElementsByClassName("excluirItem");
+
+        for (var i = 0; i < btnExcluir.length; i++){
+            btnExcluir[i].addEventListener("click", function() {
+                let itemExcluido = this.id;
+                console.log(allBazar[itemExcluido]);
+            })
+        }
         gestaoB++;
     });
 });
