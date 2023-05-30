@@ -418,7 +418,7 @@ buttonGestaoBazar.addEventListener("click", () => {
             .then(json => allBazar = json);
         
         //Printa na tela uma tabela com os dados do Bazar
-        inicioRetornoTable.insertAdjacentHTML("afterbegin", `<tr id="tableRetorno"><td style="font-weight: bold;">Nome</td><td style="font-weight: bold;">Descrição do Item</td><td style="font-weight: bold;">Data</td><td style="font-weight: bold;">Excluir</td></tr>            
+        inicioRetornoTable.insertAdjacentHTML("afterbegin", `<tr id="tableRetorno"><td style="font-weight: bold;">Nome</td><td style="font-weight: bold;">Descrição do Item</td><td style="font-weight: bold;">Data</td><td style="font-weight: bold;">Remover Item</td></tr>            
         `);
 
         //Verifica, a partir do cpf, o nome do usuário responsável pelo item do bazar
@@ -432,7 +432,7 @@ buttonGestaoBazar.addEventListener("click", () => {
                     bazarNome = allVoluntarios[j].nome;
                 };
             };
-            inicioRetornoTable.insertAdjacentHTML("beforeend", `<tr id="tableRetornoValores"><td>${bazarNome}</td><td>${allBazar[i].descricao}</td><td>${dataFormatada}</td><td><button class="excluirItem" id="idExclusao">X</button></td></tr>`);
+            inicioRetornoTable.insertAdjacentHTML("beforeend", `<tr id="tableRetornoValores"><td>${bazarNome}</td><td>${allBazar[i].descricao}</td><td>${dataFormatada}</td><td><button class="excluirItem" id="idExclusao">X</button> Remover</td></tr>`);
             let btnExclusao = document.getElementById("idExclusao");
             btnExclusao.id = i;            
         };

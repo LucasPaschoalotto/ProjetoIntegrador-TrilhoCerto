@@ -222,7 +222,7 @@ form legend {
 	margin: 0px;
 }
 
-#setUsuario, #setSenha, #logarUsuario, #gestaoVoluntarios, #gestaoDoacoes, #gestaoBazar, #gestaoContato, #gestaoRelatorios, #tipoRelatorios, #periodoRelatorios {
+#setUsuario, #setSenha, #logarUsuario, #gestaoVoluntarios, #gestaoDoacoes, #gestaoBazar, #gestaoContato, #gestaoRelatorios, #tipoRelatorios, #periodoRelatorios{
 	margin: 5px;
     border-radius: 5px;
     border-color: #0675ca;
@@ -264,6 +264,15 @@ form legend {
 	align-items: center;
 	margin: .75rem auto;
 	background-color: #F5F5FA;
+}
+
+.excluirItem {
+	margin: 2px;
+    border-radius: 5px;
+    border-color: #0675ca;
+    border-style: solid;
+    text-align: center;
+	font-size: 15px;
 }
 
 td {
