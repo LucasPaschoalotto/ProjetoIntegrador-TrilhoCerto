@@ -35,7 +35,7 @@ CREATE INDEX ix_bazar_01 ON bazar USING btree (id_voluntario);
 ALTER TABLE bazar ADD CONSTRAINT fk_bazar_01 FOREIGN KEY (id_voluntario) REFERENCES voluntarios (uuid);
 
 CREATE TABLE IF NOT EXISTS bazarVendido (
-uuid uuid DEFAULT uuid_generate_v4(),
+uuid uuid NOT NULL,
 id_voluntario uuid NOT NULL,
 descricao varchar(100) NOT NULL,
 datahora timestamptz NOT NULL DEFAULT now(),

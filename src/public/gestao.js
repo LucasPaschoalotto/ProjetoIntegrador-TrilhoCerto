@@ -416,6 +416,13 @@ buttonGestaoBazar.addEventListener("click", () => {
             })
             .then(response => response.json())          
             .then(json => allBazar = json);
+
+        let allBazarVendido;
+        await fetch("/bazar/getAllBazarVendido",{
+            method: "GET"
+            })
+            .then(response => response.json())          
+            .then(json => allBazarVendido = json);
         
         //Printa na tela uma tabela com os dados do Bazar
         inicioRetornoTable.insertAdjacentHTML("afterbegin", `<tr id="tableRetorno"><td style="font-weight: bold;">Nome</td><td style="font-weight: bold;">Descrição do Item</td><td style="font-weight: bold;">Data</td><td style="font-weight: bold;">Remover Item</td></tr>            
@@ -427,6 +434,12 @@ buttonGestaoBazar.addEventListener("click", () => {
             let data = new Date(allBazar[i].datahora)
             let dataFormatada = ((data.getDate() + "/" + ((data.getMonth() + 1)) + "/" + data.getFullYear()));
             
+            for(var k=0; k < allBazarVendido.length; k++){
+                if(allBazar[i].uuid == allBazarVendido[k].uuid){
+                    i++;
+                };
+            };
+
             for(var j=0; j < allVoluntarios.length; j++){
                 if (allBazar[i].id_voluntario == allVoluntarios[j].uuid){
                     bazarNome = allVoluntarios[j].nome;
@@ -441,14 +454,27 @@ buttonGestaoBazar.addEventListener("click", () => {
         var btnExcluir = document.getElementsByClassName("excluirItem");
 
         for (var i = 0; i < btnExcluir.length; i++){
-            btnExcluir[i].addEventListener("click", function() {
-                let itemExcluido = this.id;
-                console.log(allBazar[itemExcluido]);
+            btnExcluir[i].addEventListener("click", async function() {
+                let itemVendido = this.id;
+                let uuidV = allBazar[itemVendido].uuid
+                let voluntarioV = allBazar[itemVendido].id_voluntario;
+                let descricaoV = allBazar[itemVendido].descricao;
                 
-                let btnSelecionado = document.getElementById(`${itemExcluido}`)
+                await fetch('/bazarVendido', {
+                    method: 'POST',
+                    headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+
+                body: JSON.stringify({uuid: uuidV, descricao: descricaoV, id_voluntario: voluntarioV})
+                });
+
+                let btnSelecionado = document.getElementById(`${itemVendido}`)
                 btnSelecionado.remove();
-            })
-        }
+            });
+        };
+
         gestaoB++;
     });
 });
