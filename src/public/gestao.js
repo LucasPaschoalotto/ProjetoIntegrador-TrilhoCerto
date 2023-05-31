@@ -444,6 +444,9 @@ buttonGestaoBazar.addEventListener("click", () => {
             btnExcluir[i].addEventListener("click", function() {
                 let itemExcluido = this.id;
                 console.log(allBazar[itemExcluido]);
+                
+                let btnSelecionado = document.getElementById(`${itemExcluido}`)
+                btnSelecionado.remove();
             })
         }
         gestaoB++;

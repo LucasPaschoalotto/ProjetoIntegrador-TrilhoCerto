@@ -29,7 +29,7 @@ class RouteController{
         return newDoacao;
     }
 
-    //Método para criar despesa
+    //Método para criar item no bazar
     async createBazar(descricao, id_voluntario){
         const createBazar = `
         INSERT INTO bazar (descricao, id_voluntario)
@@ -41,6 +41,20 @@ class RouteController{
         const [newBazar] = rows;
     
         return newBazar;
+    }
+
+    //Método para criar item vendido do bazar
+    async createBazarVendido(descricao, id_voluntario){
+        const createBazar = `
+        INSERT INTO bazarVendido (descricao, id_voluntario)
+        VALUES ($1, $2)
+        `;
+        
+        const createBazarValues = [descricao, id_voluntario];
+        const {rows} = await dataBase.query(createBazar, createBazarValues);
+        const [newBazarVendido] = rows;
+    
+        return newBazarVendido;
     }
 
     //Método para criar contato
@@ -86,6 +100,18 @@ class RouteController{
         const findBazar = `
         SELECT descricao, id_voluntario, datahora
         FROM bazar
+        `;
+
+        const {rows} = await dataBase.query(findBazar);
+        
+        return rows || [];
+    }
+
+    //Método para listar todo os itens vendidos do bazar
+    async findAllBazarVendido(){
+        const findBazar = `
+        SELECT descricao, id_voluntario, datahora
+        FROM bazarVendido
         `;
 
         const {rows} = await dataBase.query(findBazar);

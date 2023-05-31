@@ -83,6 +83,14 @@ rota.post("/bazar", async (req, res) => {
     res.status(200).send(bazar);
 });
 
+//ROTA CREATE BAZAR VENDIDO
+rota.post("/bazarVendido", async (req, res) => {
+    const descricao = req.body.descricao;
+    const id_voluntario = req.body.id_voluntario;
+    const bazarVendido = await controllerRoutes.createBazarVendido(descricao, id_voluntario);
+    res.status(200).send(bazarVendido);
+});
+
 //ROTA CREATE MENSAGEM
 rota.post("/contato", async (req, res) => {
     const nome = req.body.nome;
@@ -110,6 +118,12 @@ rota.get("/doacoes/getAllDoacoes", async(req, res) => {
 rota.get("/bazar/getAllBazar", async(req, res) => {
     const getBazar = await controllerRoutes.findAllBazar();
     res.status(200).send(getBazar);
+});
+
+//ROTA READ ALL BazarVendido
+rota.get("/bazar/getAllBazarVendido", async(req, res) => {
+    const getBazarVendido = await controllerRoutes.findAllBazarVendido();
+    res.status(200).send(getBazarVendido);
 });
 
 //ROTA READ ALL Contato
