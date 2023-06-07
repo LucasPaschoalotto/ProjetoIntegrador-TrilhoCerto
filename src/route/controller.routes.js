@@ -74,7 +74,7 @@ class RouteController{
     //Método para listar todo os voluntários
     async findAllVoluntarios(){
         const findVoluntarios = `
-        SELECT uuid, nome, email, cpf, telefone
+        SELECT uuid, nome, email, cpf, telefone, datahora
         FROM voluntarios
         `;
 

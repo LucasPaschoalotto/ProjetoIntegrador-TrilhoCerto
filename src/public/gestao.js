@@ -40,10 +40,8 @@ buttonGestaoVoluntarios.addEventListener("click", (form) => {
         btnBazar--;
     };
     if (gestaoR == 1){
-        var tipoR = document.getElementById("tipoRelatorio");
-        var periodoR = document.getElementById("periodoRelatorio");
-        tipoR.remove();
-        periodoR.remove();
+        var textR = document.getElementById("relatorios");
+        textR.remove();
         gestaoR--;
     };
     //Remove retorno de tabelas
@@ -164,10 +162,8 @@ buttonGestaoDoacoes.addEventListener("click", (form) => {
         btnBazar--;
     };
     if (gestaoR == 1){
-        var tipoR = document.getElementById("tipoRelatorio");
-        var periodoR = document.getElementById("periodoRelatorio");
-        tipoR.remove();
-        periodoR.remove();
+        var textR = document.getElementById("relatorios");
+        textR.remove();
         gestaoR--;
     };
     //Remove retorno de tabelas
@@ -310,10 +306,8 @@ buttonGestaoBazar.addEventListener("click", () => {
         btnDoacoes--;
     };
     if (gestaoR == 1){
-        var tipoR = document.getElementById("tipoRelatorio");
-        var periodoR = document.getElementById("periodoRelatorio");
-        tipoR.remove();
-        periodoR.remove();
+        var textR = document.getElementById("relatorios");
+        textR.remove();
         gestaoR--;
     };
     //Remove retorno de tabelas
@@ -479,6 +473,7 @@ buttonGestaoBazar.addEventListener("click", () => {
     });
 });
 
+//Gestão Contato
 buttonGestaoContato.addEventListener("click", async(form) => {
     form.preventDefault();
     if(btnContato > 0) return;
@@ -500,10 +495,8 @@ buttonGestaoContato.addEventListener("click", async(form) => {
         btnBazar--;
     };
     if (gestaoR == 1){
-        var tipoR = document.getElementById("tipoRelatorio");
-        var periodoR = document.getElementById("periodoRelatorio");
-        tipoR.remove();
-        periodoR.remove();
+        var textR = document.getElementById("relatorios");
+        textR.remove();
         gestaoR--;
     };
 
@@ -575,26 +568,53 @@ buttonGestaoRelatorios.addEventListener("click", () => {
      inicioRetorno.insertAdjacentHTML("afterend", `
      <div id="relatorios">
      <fieldset id="tipoRelatorio">
-        <legend>Tipo de relatórios:</legend>
+        <legend>Tipo de relatório:</legend>
         <select id="tipoRelatorios">
-            <option>Voluntários</option>
-            <option>Doações</option>
-            <option>Itens do Bazar</option>
-            <option>Mensagens</option>
+            <option id="relatorioVoluntario">Voluntários</option>
+            <option id="relatorioDoacao">Doações</option>
+            <option id="relatorioBazar">Itens do Bazar</option>
+            <option id="relatorioMensagem">Mensagens</option>
         </select>
     </fieldset>
-    <fieldset id="periodoRelatorio">
-        <legend>Tipo de relatórios:</legend>
-        <select id="periodoRelatorios">
-            <option>Voluntários</option>
-            <option>Doações</option>
-            <option>Itens do Bazar</option>
-            <option>Mensagens</option>
-        </select>
    </fieldset>
    <button id="gerarRelatorio">Gerar Relatório</button>
    </div>
     `);
+
+    var btnGerarRelatorio = document.getElementById("gerarRelatorio");
+    var relatorioVoluntario = document.getElementById("relatorioVoluntario")
+    var relatorioDoacao = document.getElementById("relatorioDoacao");
+    var relatorioBazar = document.getElementById("relatorioBazar");
+    var relatorioMensagem = document.getElementById("relatorioMensagem");
+
+    //Gerar Relatórios e Gráficos
+    btnGerarRelatorio.addEventListener("click", async() => {
+        if(relatorioVoluntario.selected){
+            let allVoluntarios;
+            
+            await fetch("/voluntarios/getAllVoluntarios",{
+                method: "GET"
+                })
+                .then(response => response.json())          
+                .then(json => allVoluntarios = json);
+                
+                console.log(allVoluntarios);
+                for(let i = 0; i < allVoluntarios.length; i++){
+                    let data = new Date(allVoluntarios[i].datahora)
+                    let voluntariosDias = data.getDate();
+                    let voluntariosMes = data.getMonth()+1;
+                    console.log(voluntariosDias, voluntariosMes);
+                }
+
+
+        } else if(relatorioDoacao.selected){
+
+        } else if(relatorioBazar.selected){
+
+        } else if(relatorioMensagem.selected){
+
+        }
+    });
 
     gestaoR++;
 });
