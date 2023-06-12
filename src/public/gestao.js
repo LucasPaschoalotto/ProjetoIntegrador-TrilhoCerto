@@ -41,7 +41,9 @@ buttonGestaoVoluntarios.addEventListener("click", (form) => {
     };
     if (gestaoR == 1){
         var textR = document.getElementById("relatorios");
+        var chartRetorno = document.querySelector("#chart");
         textR.remove();
+        chartRetorno.remove();
         gestaoR--;
     };
     //Remove retorno de tabelas
@@ -163,7 +165,9 @@ buttonGestaoDoacoes.addEventListener("click", (form) => {
     };
     if (gestaoR == 1){
         var textR = document.getElementById("relatorios");
+        var chartRetorno = document.querySelector("#chart");
         textR.remove();
+        chartRetorno.remove();
         gestaoR--;
     };
     //Remove retorno de tabelas
@@ -307,7 +311,9 @@ buttonGestaoBazar.addEventListener("click", () => {
     };
     if (gestaoR == 1){
         var textR = document.getElementById("relatorios");
+        var chartRetorno = document.querySelector("#chart");
         textR.remove();
+        chartRetorno.remove();
         gestaoR--;
     };
     //Remove retorno de tabelas
@@ -499,7 +505,9 @@ buttonGestaoContato.addEventListener("click", async(form) => {
     };
     if (gestaoR == 1){
         var textR = document.getElementById("relatorios");
+        var chartRetorno = document.querySelector("#chart");
         textR.remove();
+        chartRetorno.remove();
         gestaoR--;
     };
 
@@ -590,8 +598,7 @@ buttonGestaoRelatorios.addEventListener("click", () => {
     var relatorioBazar = document.getElementById("relatorioBazar");
     var relatorioMensagem = document.getElementById("relatorioMensagem");
 
-    let fimRelatorios = document.getElementById("relatorios");
-    
+    let fimRelatorios = document.getElementById("relatorios");    
     
     //Gerar Relatórios e Gráficos
     btnGerarRelatorio.addEventListener("click", async() => {
@@ -646,7 +653,7 @@ buttonGestaoRelatorios.addEventListener("click", () => {
             
             
             fimRelatorios.insertAdjacentHTML("afterend", `
-            <div id="grafico">
+            <div id="chart">
             `)
         
             google.charts.load('current', { packages: [ 'corechart' ] })
@@ -658,14 +665,14 @@ buttonGestaoRelatorios.addEventListener("click", () => {
                     ["Maio", quantidadeVMes5],
                     ["Junho", quantidadeVMes6],
                     ["Média de Voluntários/mês", mediaV],
-                    [`Mês com maior volume de cadastros: ${mesMaiorV}`, mesMaiorVQuantidade]
+                    [`${mesMaiorV} - mês com maior volume de cadastros`, mesMaiorVQuantidade]
                 ]);
                 let options = {
                     title: "Voluntários:",
                     height: 540,
                 }
 
-                let chart = new google.visualization.ColumnChart(document.getElementById("grafico"))
+                let chart = new google.visualization.ColumnChart(document.getElementById("chart"))
                 chart.draw(data, options);
             };
                       
