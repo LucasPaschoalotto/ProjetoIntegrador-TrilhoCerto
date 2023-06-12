@@ -38,6 +38,7 @@ CREATE TABLE IF NOT EXISTS bazarVendido (
 uuid uuid NOT NULL,
 id_voluntario uuid NOT NULL,
 descricao varchar(100) NOT NULL,
+valor float NOT NULL,
 datahora timestamptz NOT NULL DEFAULT now(),
 
 CONSTRAINT pk_bazarVendido PRIMARY KEY (uuid)

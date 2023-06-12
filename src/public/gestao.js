@@ -453,6 +453,7 @@ buttonGestaoBazar.addEventListener("click", () => {
                 let uuidV = allBazar[itemVendido].uuid
                 let voluntarioV = allBazar[itemVendido].id_voluntario;
                 let descricaoV = allBazar[itemVendido].descricao;
+                let valorItem = prompt("Digite o valor do item");
                 
                 await fetch('/bazarVendido', {
                     method: 'POST',
@@ -461,7 +462,7 @@ buttonGestaoBazar.addEventListener("click", () => {
                     'Content-Type': 'application/json'
                 },
 
-                body: JSON.stringify({uuid: uuidV, descricao: descricaoV, id_voluntario: voluntarioV})
+                body: JSON.stringify({uuid: uuidV, descricao: descricaoV, id_voluntario: voluntarioV, valor: valorItem})
                 });
 
                 let btnSelecionado = document.getElementById(`${itemVendido}`)

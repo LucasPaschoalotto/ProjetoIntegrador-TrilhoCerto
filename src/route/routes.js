@@ -88,7 +88,8 @@ rota.post("/bazarVendido", async (req, res) => {
     const uuid = req.body.uuid;
     const descricao = req.body.descricao;
     const id_voluntario = req.body.id_voluntario;
-    const bazarVendido = await controllerRoutes.createBazarVendido(uuid, descricao, id_voluntario);
+    const valor = req.body.valor;
+    const bazarVendido = await controllerRoutes.createBazarVendido(uuid, descricao, id_voluntario, valor);
     res.status(200).send(bazarVendido);
 });
 

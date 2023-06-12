@@ -44,13 +44,13 @@ class RouteController{
     }
 
     //Método para criar item vendido do bazar
-    async createBazarVendido(uuid, descricao, id_voluntario){
+    async createBazarVendido(uuid, descricao, id_voluntario, valor){
         const createBazar = `
-        INSERT INTO bazarVendido (uuid, descricao, id_voluntario)
-        VALUES ($1, $2, $3)
+        INSERT INTO bazarVendido (uuid, descricao, id_voluntario, valor)
+        VALUES ($1, $2, $3, $4)
         `;
         
-        const createBazarValues = [uuid, descricao, id_voluntario];
+        const createBazarValues = [uuid, descricao, id_voluntario, valor];
         const {rows} = await dataBase.query(createBazar, createBazarValues);
         const [newBazarVendido] = rows;
     
