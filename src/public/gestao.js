@@ -453,7 +453,9 @@ buttonGestaoBazar.addEventListener("click", () => {
                 let uuidV = allBazar[itemVendido].uuid
                 let voluntarioV = allBazar[itemVendido].id_voluntario;
                 let descricaoV = allBazar[itemVendido].descricao;
-                let valorItem = prompt("Digite o valor do item");
+                let valorItem = prompt("Digite o valor do item vendido:");
+
+                if(!valorItem) return;
                 
                 await fetch('/bazarVendido', {
                     method: 'POST',
@@ -638,6 +640,7 @@ buttonGestaoRelatorios.addEventListener("click", () => {
                 };
 
                 console.log("Mês4:", quantidadeVMes4, "Mês5:", quantidadeVMes5, "Mês6:", quantidadeVMes6, "Média:", parseFloat(mediaV.toFixed(2)), "Mês com maior volume de cadastro:", mesMaiorV, "Quantidade:", mesMaiorVQuantidade);
+
         } else if(relatorioDoacao.selected){
             let quantidadeDMes4 = 0;
             let quantidadeDMes5 = 0;
@@ -689,6 +692,108 @@ buttonGestaoRelatorios.addEventListener("click", () => {
             console.log("Mês4:", quantidadeDMes4, "Mês5:", quantidadeDMes5, "Mês6:", quantidadeDMes6, "Média:", parseFloat(mediaD.toFixed(2)), "Mês com maior volume de doações:", mesMaiorD, "Valor:", mesMaiorDQuantidade);
 
         } else if(relatorioBazar.selected){
+            let quantidadeBMes4 = 0;
+            let quantidadeBMes5 = 0;
+            let quantidadeBMes6 = 0;            
+            let quantidadeBVMes4 = 0;
+            let quantidadeBVMes5 = 0;
+            let quantidadeBVMes6 = 0;
+            let itensBVMes4 = 0;
+            let itensBVMes5 = 0;
+            let itensBVMes6 = 0;
+
+            let allBazar;
+            await fetch("/bazar/getAllBazar",{
+                method: "GET"
+                })
+                .then(response => response.json())          
+                .then(json => allBazar = json);
+
+            let allBazarVendido;
+            await fetch("/bazar/getAllBazarVendido",{
+                method: "GET"
+                })
+                .then(response => response.json())          
+                .then(json => allBazarVendido = json);
+
+            for(let i = 0; i < allBazar.length; i++){
+                let data = new Date(allBazar[i].datahora)
+                let bazarMes = data.getMonth()+1;
+
+                switch(bazarMes){
+                    case 4:
+                        quantidadeBMes4++;
+                        break;
+                    case 5:
+                        quantidadeBMes5++;
+                        break;
+                    case 6:
+                        quantidadeBMes6++;
+                        break;
+                };
+            };
+            let mediaB = (quantidadeBMes4 + quantidadeBMes5 + quantidadeBMes6) / 3;
+
+            let mesMaiorBQuantidade = Math.max(quantidadeBMes4, quantidadeBMes5, quantidadeBMes6);
+
+            let mesMaiorB;
+            switch(mesMaiorBQuantidade){
+                case quantidadeBMes4:
+                    mesMaiorB = 4;
+                    break;
+                
+                case quantidadeBMes5:
+                    mesMaiorB = 5;
+                    break;
+
+                case quantidadeBMes6:
+                    mesMaiorB = 6;
+                    break;
+            };
+
+            for(let i = 0; i < allBazarVendido.length; i++){
+                let data = new Date(allBazarVendido[i].datahora)
+                let bazarVendidoMes = data.getMonth()+1;
+
+                switch(bazarVendidoMes){
+                    case 4:
+                        itensBVMes4++;
+                        quantidadeBVMes4 += allBazarVendido[i].valor;
+                        break;
+                    case 5:
+                        itensBVMes5++;
+                        quantidadeBVMes5 += allBazarVendido[i].valor;
+                        break;
+                    case 6:
+                        itensBVMes6++;
+                        quantidadeBVMes6 += allBazarVendido[i].valor;
+                        break;
+                };
+            };
+            let mediaBV = (quantidadeBVMes4 + quantidadeBVMes5 + quantidadeBVMes6) / 3;
+
+            let mesMaiorBVQuantidade = Math.max(quantidadeBVMes4, quantidadeBVMes5, quantidadeBVMes6);
+
+            let mesMaiorBV;
+            switch(mesMaiorBVQuantidade){
+                case quantidadeBVMes4:
+                    mesMaiorBV = 4;
+                    break;
+                
+                case quantidadeBVMes5:
+                    mesMaiorBV = 5;
+                    break;
+
+                case quantidadeBVMes6:
+                    mesMaiorBV = 6;
+                    break;
+            };
+
+            let itensRestantesB = mediaB*3 - (itensBVMes4 + itensBVMes5 + itensBVMes6)
+
+            console.log("Itens Bazar:", "Mês4:", quantidadeBMes4, "Mês5:", quantidadeBMes5, "Mês6:", quantidadeBMes6, "Média:", parseFloat(mediaB.toFixed(2)), "Mês com maior volume de cadastro:", mesMaiorB, "Quantidade:", mesMaiorBQuantidade);
+
+            console.log("Itens Bazar Vendido:", "Mês4:", itensBVMes4, "Total4:", quantidadeBVMes4, "\nMês5:", itensBVMes5, "Total5:", quantidadeBVMes5, "\nMês6:", itensBVMes6, "Total6:", quantidadeBVMes6, "\nMédia:", parseFloat(mediaBV.toFixed(2)), "\nMês com maior volume de doações:", mesMaiorBV, "Valor:", mesMaiorBVQuantidade, "\nQuantidade de itens restantes do Bazar:", itensRestantesB);
 
         } else if(relatorioMensagem.selected){
             let quantidadeCMes4 = 0;
@@ -710,7 +815,6 @@ buttonGestaoRelatorios.addEventListener("click", () => {
                 })
                 .then(response => response.json())          
                 .then(json => allContato = json);
-            console.log(allContato);
 
             for(let i = 0; i < allContato.length; i++){
                 let data = new Date(allContato[i].datahora)

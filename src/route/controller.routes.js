@@ -110,7 +110,7 @@ class RouteController{
     //Método para listar todo os itens vendidos do bazar
     async findAllBazarVendido(){
         const findBazar = `
-        SELECT uuid, descricao, id_voluntario, datahora
+        SELECT uuid, descricao, id_voluntario, valor, datahora
         FROM bazarVendido
         `;
 
