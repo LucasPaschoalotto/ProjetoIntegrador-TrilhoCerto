@@ -590,6 +590,9 @@ buttonGestaoRelatorios.addEventListener("click", () => {
     var relatorioBazar = document.getElementById("relatorioBazar");
     var relatorioMensagem = document.getElementById("relatorioMensagem");
 
+    let fimRelatorios = document.getElementById("relatorios");
+    
+    
     //Gerar Relatórios e Gráficos
     btnGerarRelatorio.addEventListener("click", async() => {
         if(relatorioVoluntario.selected){
@@ -604,43 +607,68 @@ buttonGestaoRelatorios.addEventListener("click", () => {
                 .then(response => response.json())          
                 .then(json => allVoluntarios = json);
                 
-                for(let i = 0; i < allVoluntarios.length; i++){
-                    let data = new Date(allVoluntarios[i].datahora)
-                    let voluntariosMes = data.getMonth()+1;
-
-                    switch(voluntariosMes){
-                        case 4:
-                            quantidadeVMes4++;
-                            break;
-                        case 5:
-                            quantidadeVMes5++;
-                            break;
-                        case 6:
-                            quantidadeVMes6++;
-                            break;
+            for(let i = 0; i < allVoluntarios.length; i++){
+                let data = new Date(allVoluntarios[i].datahora)
+                let voluntariosMes = data.getMonth()+1;
+                
+                switch(voluntariosMes){
+                    case 4:
+                        quantidadeVMes4++;
+                        break;
+                    case 5:
+                        quantidadeVMes5++;
+                        break;
+                    case 6:
+                        quantidadeVMes6++;
+                        break;
                     };
                 };
-                let mediaV = (quantidadeVMes4 + quantidadeVMes5 + quantidadeVMes6) / 3;
-
-                let mesMaiorVQuantidade = Math.max(quantidadeVMes4, quantidadeVMes5, quantidadeVMes6);
-
-                let mesMaiorV;
-                switch(mesMaiorVQuantidade){
-                    case quantidadeVMes4:
-                        mesMaiorV = 4;
-                        break;
+            let mediaV = parseFloat(((quantidadeVMes4 + quantidadeVMes5 + quantidadeVMes6) / 3).toFixed(2));
+                
+            let mesMaiorVQuantidade = Math.max(quantidadeVMes4, quantidadeVMes5, quantidadeVMes6);
+                
+            let mesMaiorV;
+            switch(mesMaiorVQuantidade){
+                case quantidadeVMes4:
+                    mesMaiorV = "Abril";
+                    break;
                     
-                    case quantidadeVMes5:
-                        mesMaiorV = 5;
-                        break;
-    
-                    case quantidadeVMes6:
-                        mesMaiorV = 6;
-                        break;
+                case quantidadeVMes5:
+                    mesMaiorV = "Maio";
+                    break;
+                    
+                case quantidadeVMes6:
+                    mesMaiorV = "Junho";
+                    break;
                 };
+                        
+            console.log("Mês4:", quantidadeVMes4, "Mês5:", quantidadeVMes5, "Mês6:", quantidadeVMes6, "Média:", parseFloat(mediaV.toFixed(2)), "Mês com maior volume de cadastro:", mesMaiorV, "Quantidade:", mesMaiorVQuantidade);
+            
+            
+            fimRelatorios.insertAdjacentHTML("afterend", `
+            <div id="grafico">
+            `)
+        
+            google.charts.load('current', { packages: [ 'corechart' ] })
+            google.charts.setOnLoadCallback(drawChartVoluntarios)
+            function drawChartVoluntarios() {
+                let data = new google.visualization.arrayToDataTable([
+                    ["Mês", "Quantidade de Voluntários"],
+                    ["Abril", quantidadeVMes4],
+                    ["Maio", quantidadeVMes5],
+                    ["Junho", quantidadeVMes6],
+                    ["Média de Voluntários/mês", mediaV],
+                    [`Mês com maior volume de cadastros: ${mesMaiorV}`, mesMaiorVQuantidade]
+                ]);
+                let options = {
+                    title: "Voluntários:",
+                    height: 540,
+                }
 
-                console.log("Mês4:", quantidadeVMes4, "Mês5:", quantidadeVMes5, "Mês6:", quantidadeVMes6, "Média:", parseFloat(mediaV.toFixed(2)), "Mês com maior volume de cadastro:", mesMaiorV, "Quantidade:", mesMaiorVQuantidade);
-
+                let chart = new google.visualization.ColumnChart(document.getElementById("grafico"))
+                chart.draw(data, options);
+            };
+                      
         } else if(relatorioDoacao.selected){
             let quantidadeDMes4 = 0;
             let quantidadeDMes5 = 0;
