@@ -619,9 +619,24 @@ buttonGestaoRelatorios.addEventListener("click", () => {
                 };
                 let mediaV = (quantidadeVMes4 + quantidadeVMes5 + quantidadeVMes6) / 3;
 
-                let mesMaiorV = Math.max(quantidadeVMes4, quantidadeVMes5, quantidadeVMes6);
+                let mesMaiorVQuantidade = Math.max(quantidadeVMes4, quantidadeVMes5, quantidadeVMes6);
 
-                console.log("Mês4:", quantidadeVMes4, "Mês5:", quantidadeVMes5, "Mês6:", quantidadeVMes6, "Média:", parseFloat(mediaV.toFixed(2)), "Mês com maior volume de cadastro:", mesMaiorV);
+                let mesMaiorV;
+                switch(mesMaiorVQuantidade){
+                    case quantidadeVMes4:
+                        mesMaiorV = 4;
+                        break;
+                    
+                    case quantidadeVMes5:
+                        mesMaiorV = 5;
+                        break;
+    
+                    case quantidadeVMes6:
+                        mesMaiorV = 6;
+                        break;
+                };
+
+                console.log("Mês4:", quantidadeVMes4, "Mês5:", quantidadeVMes5, "Mês6:", quantidadeVMes6, "Média:", parseFloat(mediaV.toFixed(2)), "Mês com maior volume de cadastro:", mesMaiorV, "Quantidade:", mesMaiorVQuantidade);
         } else if(relatorioDoacao.selected){
             let quantidadeDMes4 = 0;
             let quantidadeDMes5 = 0;
@@ -633,7 +648,6 @@ buttonGestaoRelatorios.addEventListener("click", () => {
                 })
                 .then(response => response.json())          
                 .then(json => allDoacoes = json);
-            console.log(allDoacoes);
 
             for(let i = 0; i < allDoacoes.length; i++){
                 let data = new Date(allDoacoes[i].datahora)
@@ -676,7 +690,87 @@ buttonGestaoRelatorios.addEventListener("click", () => {
         } else if(relatorioBazar.selected){
 
         } else if(relatorioMensagem.selected){
+            let quantidadeCMes4 = 0;
+            let tipoCMes4V = 0;
+            let tipoCMes4A = 0;
+            let tipoCMes4I = 0;
+            let quantidadeCMes5 = 0;
+            let tipoCMes5V = 0;
+            let tipoCMes5A = 0;
+            let tipoCMes5I = 0;
+            let quantidadeCMes6 = 0;
+            let tipoCMes6V = 0;
+            let tipoCMes6A = 0;
+            let tipoCMes6I = 0;
 
+            let allContato;
+            await fetch("/contato/getAllContato",{
+                method: "GET"
+                })
+                .then(response => response.json())          
+                .then(json => allContato = json);
+            console.log(allContato);
+
+            for(let i = 0; i < allContato.length; i++){
+                let data = new Date(allContato[i].datahora)
+                let contatoMes = data.getMonth()+1;
+                let tipoContato = allContato[i].tipocontato;
+
+                switch(contatoMes){
+                    case 4:
+                        switch(tipoContato){
+                            case "Voluntário":
+                                tipoCMes4V++;
+                                break;
+                            
+                            case "Apadrinhamento":
+                                tipoCMes4A++;
+                                break;
+
+                            case "Informações":
+                                tipoCMes4I++;
+                                break;
+                        }
+                        quantidadeCMes4++;
+                        break;
+                    case 5:
+                        switch(tipoContato){
+                            case "Voluntário":
+                                tipoCMes5V++;
+                                break;
+                            
+                            case "Apadrinhamento":
+                                tipoCMes5A++;
+                                break;
+
+                            case "Informações":
+                                tipoCMes5I++;
+                                break;
+                        }
+                        quantidadeCMes5++;
+                        break;
+                    case 6:
+                        switch(tipoContato){
+                            case "Voluntário":
+                                tipoCMes6V++;
+                                break;
+                            
+                            case "Apadrinhamento":
+                                tipoCMes6A++;
+                                break;
+
+                            case "Informações":
+                                tipoCMes6I++;
+                                break;
+                        }
+                        quantidadeCMes6++;
+                        break;
+                };
+            };
+
+            console.log("Mensagens 4:", quantidadeCMes4, "Tipo V:", tipoCMes4V, "Tipo A:", tipoCMes4A, "Tipo I:", tipoCMes4I, "\n", 
+            "Mensagens 5:", quantidadeCMes5, "Tipo V:", tipoCMes5V, "Tipo A:", tipoCMes5A, "Tipo I:", tipoCMes5I, "\n", 
+            "Mensagens 6:", quantidadeCMes6, "Tipo V:", tipoCMes6V, "Tipo A:", tipoCMes6A, "Tipo I:", tipoCMes6I)
         }
     });
 
