@@ -590,18 +590,17 @@ buttonGestaoRelatorios.addEventListener("click", () => {
     //Gerar Relatórios e Gráficos
     btnGerarRelatorio.addEventListener("click", async() => {
         if(relatorioVoluntario.selected){
-            let allVoluntarios;
             let quantidadeVMes4 = 0;
             let quantidadeVMes5 = 0;
             let quantidadeVMes6 = 0;
             
+            let allVoluntarios;
             await fetch("/voluntarios/getAllVoluntarios",{
                 method: "GET"
                 })
                 .then(response => response.json())          
                 .then(json => allVoluntarios = json);
                 
-                console.log(allVoluntarios);
                 for(let i = 0; i < allVoluntarios.length; i++){
                     let data = new Date(allVoluntarios[i].datahora)
                     let voluntariosMes = data.getMonth()+1;
@@ -616,17 +615,63 @@ buttonGestaoRelatorios.addEventListener("click", () => {
                         case 6:
                             quantidadeVMes6++;
                             break;
-                    }
-
-                }
+                    };
+                };
                 let mediaV = (quantidadeVMes4 + quantidadeVMes5 + quantidadeVMes6) / 3;
 
                 let mesMaiorV = Math.max(quantidadeVMes4, quantidadeVMes5, quantidadeVMes6);
 
-                console.log(quantidadeVMes4, quantidadeVMes5, quantidadeVMes6, parseFloat(mediaV.toFixed(2)), mesMaiorV);
-
-
+                console.log("Mês4:", quantidadeVMes4, "Mês5:", quantidadeVMes5, "Mês6:", quantidadeVMes6, "Média:", parseFloat(mediaV.toFixed(2)), "Mês com maior volume de cadastro:", mesMaiorV);
         } else if(relatorioDoacao.selected){
+            let quantidadeDMes4 = 0;
+            let quantidadeDMes5 = 0;
+            let quantidadeDMes6 = 0;
+
+            let allDoacoes;
+            await fetch("/doacoes/getAllDoacoes",{
+                method: "GET"
+                })
+                .then(response => response.json())          
+                .then(json => allDoacoes = json);
+            console.log(allDoacoes);
+
+            for(let i = 0; i < allDoacoes.length; i++){
+                let data = new Date(allDoacoes[i].datahora)
+                let doacaoMes = data.getMonth()+1;
+
+                switch(doacaoMes){
+                    case 4:
+                        quantidadeDMes4 += allDoacoes[i].valor;
+                        break;
+                    case 5:
+                        quantidadeDMes5 += allDoacoes[i].valor;
+                        break;
+                    case 6:
+                        quantidadeDMes6 += allDoacoes[i].valor;
+                        break;
+                };
+            };
+            let mediaD = (quantidadeDMes4 + quantidadeDMes5 + quantidadeDMes6) / 3;
+
+            let mesMaiorDQuantidade = Math.max(quantidadeDMes4, quantidadeDMes5, quantidadeDMes6);
+
+            let mesMaiorD;
+            switch(mesMaiorDQuantidade){
+                case quantidadeDMes4:
+                    mesMaiorD = 4;
+                    break;
+                
+                case quantidadeDMes5:
+                    mesMaiorD = 5;
+                    break;
+
+                case quantidadeDMes6:
+                    mesMaiorD = 6;
+                    break;
+            };
+            
+
+            console.log("Mês4:", quantidadeDMes4, "Mês5:", quantidadeDMes5, "Mês6:", quantidadeDMes6, "Média:", parseFloat(mediaD.toFixed(2)), "Mês com maior volume de doações:", mesMaiorD, "Valor:", mesMaiorDQuantidade);
 
         } else if(relatorioBazar.selected){
 
