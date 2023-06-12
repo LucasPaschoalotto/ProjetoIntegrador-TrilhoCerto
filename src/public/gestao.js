@@ -591,6 +591,9 @@ buttonGestaoRelatorios.addEventListener("click", () => {
     btnGerarRelatorio.addEventListener("click", async() => {
         if(relatorioVoluntario.selected){
             let allVoluntarios;
+            let quantidadeVMes4 = 0;
+            let quantidadeVMes5 = 0;
+            let quantidadeVMes6 = 0;
             
             await fetch("/voluntarios/getAllVoluntarios",{
                 method: "GET"
@@ -601,10 +604,26 @@ buttonGestaoRelatorios.addEventListener("click", () => {
                 console.log(allVoluntarios);
                 for(let i = 0; i < allVoluntarios.length; i++){
                     let data = new Date(allVoluntarios[i].datahora)
-                    let voluntariosDias = data.getDate();
                     let voluntariosMes = data.getMonth()+1;
-                    console.log(voluntariosDias, voluntariosMes);
+
+                    switch(voluntariosMes){
+                        case 4:
+                            quantidadeVMes4++;
+                            break;
+                        case 5:
+                            quantidadeVMes5++;
+                            break;
+                        case 6:
+                            quantidadeVMes6++;
+                            break;
+                    }
+
                 }
+                let mediaV = (quantidadeVMes4 + quantidadeVMes5 + quantidadeVMes6) / 3;
+
+                let mesMaiorV = Math.max(quantidadeVMes4, quantidadeVMes5, quantidadeVMes6);
+
+                console.log(quantidadeVMes4, quantidadeVMes5, quantidadeVMes6, parseFloat(mediaV.toFixed(2)), mesMaiorV);
 
 
         } else if(relatorioDoacao.selected){
