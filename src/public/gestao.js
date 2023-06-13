@@ -598,11 +598,29 @@ buttonGestaoRelatorios.addEventListener("click", () => {
     var relatorioBazar = document.getElementById("relatorioBazar");
     var relatorioMensagem = document.getElementById("relatorioMensagem");
 
-    let fimRelatorios = document.getElementById("relatorios");    
+    let fimRelatorios = document.getElementById("relatorios");  
     
+    //Remove o retorno dos gráficos
+    let relatorioGerado = 0;    
+    if(relatorioGerado > 0){
+        let retornoChart = document.getElementById("chart");
+        let retornoChart2 = document.getElementById("chart2");
+        retornoChart.remove();
+        retornoChart2.remove();
+    }
+    fimRelatorios.insertAdjacentHTML("afterend", `
+    <div id="chart">;
+    `)
+    let fimChart1 = document.getElementById("chart");
+    fimChart1.insertAdjacentHTML("afterend", `
+    <div id="chart2">
+    `);
+
     //Gerar Relatórios e Gráficos
     btnGerarRelatorio.addEventListener("click", async() => {
         if(relatorioVoluntario.selected){
+            console.log(relatorioGerado);
+
             let quantidadeVMes4 = 0;
             let quantidadeVMes5 = 0;
             let quantidadeVMes6 = 0;
@@ -650,12 +668,7 @@ buttonGestaoRelatorios.addEventListener("click", () => {
                 };
                         
             console.log("Mês4:", quantidadeVMes4, "Mês5:", quantidadeVMes5, "Mês6:", quantidadeVMes6, "Média:", parseFloat(mediaV.toFixed(2)), "Mês com maior volume de cadastro:", mesMaiorV, "Quantidade:", mesMaiorVQuantidade);
-            
-            
-            fimRelatorios.insertAdjacentHTML("afterend", `
-            <div id="chart">
-            `)
-        
+                  
             google.charts.load('current', { packages: [ 'corechart' ] })
             google.charts.setOnLoadCallback(drawChartVoluntarios)
             function drawChartVoluntarios() {
@@ -704,27 +717,46 @@ buttonGestaoRelatorios.addEventListener("click", () => {
                         break;
                 };
             };
-            let mediaD = (quantidadeDMes4 + quantidadeDMes5 + quantidadeDMes6) / 3;
+            let mediaD = parseFloat(((quantidadeDMes4 + quantidadeDMes5 + quantidadeDMes6) / 3).toFixed(2));
 
             let mesMaiorDQuantidade = Math.max(quantidadeDMes4, quantidadeDMes5, quantidadeDMes6);
 
             let mesMaiorD;
             switch(mesMaiorDQuantidade){
                 case quantidadeDMes4:
-                    mesMaiorD = 4;
+                    mesMaiorD = "Abril";
                     break;
                 
                 case quantidadeDMes5:
-                    mesMaiorD = 5;
+                    mesMaiorD = "Maio";
                     break;
 
                 case quantidadeDMes6:
-                    mesMaiorD = 6;
+                    mesMaiorD = "Junho";
                     break;
             };
             
-
             console.log("Mês4:", quantidadeDMes4, "Mês5:", quantidadeDMes5, "Mês6:", quantidadeDMes6, "Média:", parseFloat(mediaD.toFixed(2)), "Mês com maior volume de doações:", mesMaiorD, "Valor:", mesMaiorDQuantidade);
+
+            google.charts.load('current', { packages: [ 'corechart' ] })
+            google.charts.setOnLoadCallback(drawChartDoacoes)
+            function drawChartDoacoes() {
+                let data = new google.visualization.arrayToDataTable([
+                    ["Mês", "Total de Doações R$"],
+                    ["Abril", quantidadeDMes4],
+                    ["Maio", quantidadeDMes5],
+                    ["Junho", quantidadeDMes6],
+                    ["Média de Doações/mês", mediaD],
+                    [`${mesMaiorD} - mês com maior volume de doações`, mesMaiorDQuantidade]
+                ]);
+                let options = {
+                    title: "Doações:",
+                    height: 540,
+                }
+
+                let chart = new google.visualization.ColumnChart(document.getElementById("chart"))
+                chart.draw(data, options);
+            };
 
         } else if(relatorioBazar.selected){
             let quantidadeBMes4 = 0;
@@ -812,15 +844,15 @@ buttonGestaoRelatorios.addEventListener("click", () => {
             let mesMaiorBV;
             switch(mesMaiorBVQuantidade){
                 case quantidadeBVMes4:
-                    mesMaiorBV = 4;
+                    mesMaiorBV = "Abril";
                     break;
                 
                 case quantidadeBVMes5:
-                    mesMaiorBV = 5;
+                    mesMaiorBV = "Maio";
                     break;
 
                 case quantidadeBVMes6:
-                    mesMaiorBV = 6;
+                    mesMaiorBV = "Junho";
                     break;
             };
 
@@ -829,6 +861,42 @@ buttonGestaoRelatorios.addEventListener("click", () => {
             console.log("Itens Bazar:", "Mês4:", quantidadeBMes4, "Mês5:", quantidadeBMes5, "Mês6:", quantidadeBMes6, "Média:", parseFloat(mediaB.toFixed(2)), "Mês com maior volume de cadastro:", mesMaiorB, "Quantidade:", mesMaiorBQuantidade);
 
             console.log("Itens Bazar Vendido:", "Mês4:", itensBVMes4, "Total4:", quantidadeBVMes4, "\nMês5:", itensBVMes5, "Total5:", quantidadeBVMes5, "\nMês6:", itensBVMes6, "Total6:", quantidadeBVMes6, "\nMédia:", parseFloat(mediaBV.toFixed(2)), "\nMês com maior volume de doações:", mesMaiorBV, "Valor:", mesMaiorBVQuantidade, "\nQuantidade de itens restantes do Bazar:", itensRestantesB);
+
+            google.charts.load('current', { packages: [ 'corechart' ] })
+            google.charts.setOnLoadCallback(drawChartBazar)
+            function drawChartBazar() {
+                let data = new google.visualization.arrayToDataTable([
+                    ["Mês", "Quantidade de Itens Doados"],
+                    ["Abril", quantidadeBMes4],
+                    ["Maio", quantidadeBMes5],
+                    ["Junho", quantidadeBMes6],
+                ]);
+                let options = {
+                    title: "Doações:",
+                    height: 540,
+                }
+
+                let chart = new google.visualization.ColumnChart(document.getElementById("chart"))
+                chart.draw(data, options);
+            };
+
+            google.charts.load('current', { packages: [ 'corechart' ] })
+            google.charts.setOnLoadCallback(drawChartBazarVendido)
+            function drawChartBazarVendido() {
+                let data = new google.visualization.arrayToDataTable([
+                    ["Mês", "Quantidade de Itens Doados", "Valor"],
+                    ["Abril", itensBVMes4, quantidadeBVMes4],
+                    ["Maio", itensBVMes5, quantidadeBVMes5],
+                    ["Junho", itensBVMes6, quantidadeBVMes6],
+                ]);
+                let options = {
+                    title: "Doações:",
+                    height: 540,
+                }
+
+                let chart = new google.visualization.ColumnChart(document.getElementById("chart2"))
+                chart.draw(data, options);
+            };
 
         } else if(relatorioMensagem.selected){
             let quantidadeCMes4 = 0;
@@ -908,10 +976,30 @@ buttonGestaoRelatorios.addEventListener("click", () => {
                 };
             };
 
+            let mediaC = parseFloat(((quantidadeCMes4 + quantidadeCMes5 + quantidadeCMes6) / 3).toFixed(2))
+
             console.log("Mensagens 4:", quantidadeCMes4, "Tipo V:", tipoCMes4V, "Tipo A:", tipoCMes4A, "Tipo I:", tipoCMes4I, "\n", 
             "Mensagens 5:", quantidadeCMes5, "Tipo V:", tipoCMes5V, "Tipo A:", tipoCMes5A, "Tipo I:", tipoCMes5I, "\n", 
             "Mensagens 6:", quantidadeCMes6, "Tipo V:", tipoCMes6V, "Tipo A:", tipoCMes6A, "Tipo I:", tipoCMes6I)
-        }
+
+            google.charts.load('current', { packages: [ 'corechart' ] })
+            google.charts.setOnLoadCallback(drawChartMensagens)
+            function drawChartMensagens() {
+                let data = new google.visualization.arrayToDataTable([
+                    ["Mês", "Total de Mensagens", "Tipo Voluntário", "Tipo Apadrinhamento/Doação", "Tipo Informações"],
+                    ["Abril", quantidadeCMes4, tipoCMes4V, tipoCMes4A, tipoCMes4I],
+                    ["Maio", quantidadeCMes5, tipoCMes5V, tipoCMes5A, tipoCMes5I],
+                    ["Junho", quantidadeCMes6, tipoCMes6V, tipoCMes6A, tipoCMes6I],
+                ]);
+                let options = {
+                    title: "Mensagens:",
+                    height: 540,
+                }
+
+                let chart = new google.visualization.ColumnChart(document.getElementById("chart"))
+                chart.draw(data, options);
+            };
+        };
     });
 
     gestaoR++;
