@@ -21,6 +21,7 @@ var gestaoD = 0;
 var gestaoB = 0;
 var gestaoC = 0;
 var gestaoR = 0;
+var relatorioBGerado = 0;
 
 //VOLUNTÁRIOS
 buttonGestaoVoluntarios.addEventListener("click", (form) => {
@@ -42,6 +43,12 @@ buttonGestaoVoluntarios.addEventListener("click", (form) => {
     if (gestaoR == 1){
         var textR = document.getElementById("relatorios");
         var chartRetorno = document.querySelector("#chart");
+        if(relatorioBGerado > 0 ){
+            var divChart1 = document.querySelector("#chart1");
+            divChart1.remove();
+            var divChart2 = document.querySelector("#chart2");
+            divChart2.remove();
+        }
         textR.remove();
         chartRetorno.remove();
         gestaoR--;
@@ -166,6 +173,12 @@ buttonGestaoDoacoes.addEventListener("click", (form) => {
     if (gestaoR == 1){
         var textR = document.getElementById("relatorios");
         var chartRetorno = document.querySelector("#chart");
+        if(relatorioBGerado > 0 ){
+            var divChart1 = document.querySelector("#chart1");
+            divChart1.remove();
+            var divChart2 = document.querySelector("#chart2");
+            divChart2.remove();
+        }
         textR.remove();
         chartRetorno.remove();
         gestaoR--;
@@ -312,6 +325,12 @@ buttonGestaoBazar.addEventListener("click", () => {
     if (gestaoR == 1){
         var textR = document.getElementById("relatorios");
         var chartRetorno = document.querySelector("#chart");
+        if(relatorioBGerado > 0 ){
+            var divChart1 = document.querySelector("#chart1");
+            divChart1.remove();
+            var divChart2 = document.querySelector("#chart2");
+            divChart2.remove();
+        }
         textR.remove();
         chartRetorno.remove();
         gestaoR--;
@@ -498,10 +517,18 @@ buttonGestaoContato.addEventListener("click", async(form) => {
         textDoacoes.remove();
         btnDoacoes--;
     }
-    if(btnBazar == 1){
-        var textBazar = document.getElementById("cadastroBazar");
-        textBazar.remove();
-        btnBazar--;
+    if (gestaoR == 1){
+        var textR = document.getElementById("relatorios");
+        var chartRetorno = document.querySelector("#chart");
+        if(relatorioBGerado > 0 ){
+            var divChart1 = document.querySelector("#chart1");
+            divChart1.remove();
+            var divChart2 = document.querySelector("#chart2");
+            divChart2.remove();
+        }
+        textR.remove();
+        chartRetorno.remove();
+        gestaoR--;
     };
     if (gestaoR == 1){
         var textR = document.getElementById("relatorios");
@@ -529,101 +556,96 @@ buttonGestaoContato.addEventListener("click", async(form) => {
         })
         .then(response => response.json())          
         .then(json => allContato = json);
+        
+        //Printa na tela uma tabela com os dados do Bazar
+        inicioRetornoTable.insertAdjacentHTML("afterbegin", `<tr id="tableRetorno"><td style="font-weight: bold;">Nome</td><td style="font-weight: bold;">Email</td><td style="font-weight: bold;">Telefone</td><td style="font-weight: bold;">Tipo de Contato</td><td style="font-weight: bold;">Mensagem</td><td style="font-weight: bold;">Data</td></tr>            
+        `);
+        
+        for(var i = (allContato.length - 1); i > -1; i--){
+            let data = new Date(allContato[i].datahora)
+            let dataFormatada = ((data.getDate() + "/" + ((data.getMonth() + 1)) + "/" + data.getFullYear()));
+            
+            inicioRetornoTable.insertAdjacentHTML("beforeend", `<tr id="tableRetornoValores"><td>${allContato[i].nome}</td><td>${allContato[i].email}</td><td>${allContato[i].telefone}</td><td>${allContato[i].tipocontato}</td><td>${allContato[i].mensagem}</td><td>${dataFormatada}</td></tr>`);
+        };
+        gestaoC++;
+    });
     
-    //Printa na tela uma tabela com os dados do Bazar
-    inicioRetornoTable.insertAdjacentHTML("afterbegin", `<tr id="tableRetorno"><td style="font-weight: bold;">Nome</td><td style="font-weight: bold;">Email</td><td style="font-weight: bold;">Telefone</td><td style="font-weight: bold;">Tipo de Contato</td><td style="font-weight: bold;">Mensagem</td><td style="font-weight: bold;">Data</td></tr>            
-    `);
-    
-    for(var i = (allContato.length - 1); i > -1; i--){
-        let data = new Date(allContato[i].datahora)
-        let dataFormatada = ((data.getDate() + "/" + ((data.getMonth() + 1)) + "/" + data.getFullYear()));
-
-        inicioRetornoTable.insertAdjacentHTML("beforeend", `<tr id="tableRetornoValores"><td>${allContato[i].nome}</td><td>${allContato[i].email}</td><td>${allContato[i].telefone}</td><td>${allContato[i].tipocontato}</td><td>${allContato[i].mensagem}</td><td>${dataFormatada}</td></tr>`);
-    };
-    gestaoC++;
-});
-
-//RELATÓRIOS
-buttonGestaoRelatorios.addEventListener("click", () => {
-    if(btnRelatorios > 0) return;
-
-    //Remover mensagens anteriores
-    if(btnVoluntarios == 1){
-        var textVoluntarios = document.getElementById("cadastroVoluntarios");
-        textVoluntarios.remove();
-        btnVoluntarios--;
-    };
-    if(btnDoacoes == 1){
-        var textDoacoes = document.getElementById("cadastroDoacoes");
-        textDoacoes.remove();
-        btnDoacoes--;
-    };
-    if(btnBazar == 1){
-        var textBazar = document.getElementById("cadastroBazar");
-        textBazar.remove();
-        btnBazar--;
-    };
-    //Remove retorno de tabelas
-    if (gestaoV > 0 || gestaoD > 0 || gestaoB > 0 || gestaoC > 0){
-        var tableRetorno = document.querySelector("#tableRetorno")
-        var tableRetornoValores = document.querySelectorAll("#tableRetornoValores");
-        tableRetorno.remove();
-        tableRetornoValores.forEach(element => element.remove());
-        gestaoV = 0;
-        gestaoD = 0;
-        gestaoB = 0;
-        gestaoC = 0;
-    };
-
-     //Printar na tela as caixas
-     inicioRetorno.insertAdjacentHTML("afterend", `
-     <div id="relatorios">
-     <fieldset id="tipoRelatorio">
+    //RELATÓRIOS
+    buttonGestaoRelatorios.addEventListener("click", () => {
+        if(btnRelatorios > 0) return;
+        
+        //Remover mensagens anteriores
+        if(btnVoluntarios == 1){
+            var textVoluntarios = document.getElementById("cadastroVoluntarios");
+            textVoluntarios.remove();
+            btnVoluntarios--;
+        };
+        if(btnDoacoes == 1){
+            var textDoacoes = document.getElementById("cadastroDoacoes");
+            textDoacoes.remove();
+            btnDoacoes--;
+        };
+        if(btnBazar == 1){
+            var textBazar = document.getElementById("cadastroBazar");
+            textBazar.remove();
+            btnBazar--;
+        };
+        //Remove retorno de tabelas
+        if (gestaoV > 0 || gestaoD > 0 || gestaoB > 0 || gestaoC > 0){
+            var tableRetorno = document.querySelector("#tableRetorno")
+            var tableRetornoValores = document.querySelectorAll("#tableRetornoValores");
+            tableRetorno.remove();
+            tableRetornoValores.forEach(element => element.remove());
+            gestaoV = 0;
+            gestaoD = 0;
+            gestaoB = 0;
+            gestaoC = 0;
+        };
+        gestaoR++;
+        
+        //Printar na tela as caixas
+        inicioRetorno.insertAdjacentHTML("afterend", `
+        <div id="relatorios">
+        <fieldset id="tipoRelatorio">
         <legend>Tipo de relatório:</legend>
         <select id="tipoRelatorios">
-            <option id="relatorioVoluntario">Voluntários</option>
-            <option id="relatorioDoacao">Doações</option>
-            <option id="relatorioBazar">Itens do Bazar</option>
-            <option id="relatorioMensagem">Mensagens</option>
+        <option id="relatorioVoluntario">Voluntários</option>
+        <option id="relatorioDoacao">Doações</option>
+        <option id="relatorioBazar">Itens do Bazar</option>
+        <option id="relatorioMensagem">Mensagens</option>
         </select>
-    </fieldset>
-   </fieldset>
-   <button id="gerarRelatorio">Gerar Relatório</button>
-   </div>
-    `);
-
-    var btnGerarRelatorio = document.getElementById("gerarRelatorio");
-    var relatorioVoluntario = document.getElementById("relatorioVoluntario")
-    var relatorioDoacao = document.getElementById("relatorioDoacao");
-    var relatorioBazar = document.getElementById("relatorioBazar");
-    var relatorioMensagem = document.getElementById("relatorioMensagem");
-
-    let fimRelatorios = document.getElementById("relatorios");  
-    
-    //Remove o retorno dos gráficos
-    let relatorioGerado = 0;    
-    if(relatorioGerado > 0){
-        let retornoChart = document.getElementById("chart");
-        let retornoChart2 = document.getElementById("chart2");
-        retornoChart.remove();
-        retornoChart2.remove();
-    }
-    fimRelatorios.insertAdjacentHTML("afterend", `
-    <div id="chart">;
-    `)
-    let fimChart1 = document.getElementById("chart");
-    fimChart1.insertAdjacentHTML("afterend", `
-    <div id="chart2">
-    `);
-
-    //Gerar Relatórios e Gráficos
-    btnGerarRelatorio.addEventListener("click", async() => {
-        if(relatorioVoluntario.selected){
-            console.log(relatorioGerado);
-
-            let quantidadeVMes4 = 0;
-            let quantidadeVMes5 = 0;
-            let quantidadeVMes6 = 0;
+        </fieldset>
+        </fieldset>
+        <button id="gerarRelatorio">Gerar Relatório</button>
+        </div>
+        `);
+        
+        var btnGerarRelatorio = document.getElementById("gerarRelatorio");
+        var relatorioVoluntario = document.getElementById("relatorioVoluntario")
+        var relatorioDoacao = document.getElementById("relatorioDoacao");
+        var relatorioBazar = document.getElementById("relatorioBazar");
+        var relatorioMensagem = document.getElementById("relatorioMensagem");
+        
+        let fimRelatorios = document.getElementById("relatorios");  
+        
+        fimRelatorios.insertAdjacentHTML("afterend", `
+        <div id="chart">;
+        `)
+        
+        let fimChart1 = document.getElementById("chart");
+        fimChart1.insertAdjacentHTML("afterend", `
+        <div id="chart1">
+        `);
+        let fimChart2 = document.getElementById("chart");
+        fimChart1.insertAdjacentHTML("afterend", `
+        <div id="chart2">
+        `);
+        //Gerar Relatórios e Gráficos
+        btnGerarRelatorio.addEventListener("click", async() => {
+            if(relatorioVoluntario.selected){
+                let quantidadeVMes4 = 0;
+                let quantidadeVMes5 = 0;
+                let quantidadeVMes6 = 0;
             
             let allVoluntarios;
             await fetch("/voluntarios/getAllVoluntarios",{
@@ -688,7 +710,7 @@ buttonGestaoRelatorios.addEventListener("click", () => {
                 let chart = new google.visualization.ColumnChart(document.getElementById("chart"))
                 chart.draw(data, options);
             };
-                      
+
         } else if(relatorioDoacao.selected){
             let quantidadeDMes4 = 0;
             let quantidadeDMes5 = 0;
@@ -709,7 +731,7 @@ buttonGestaoRelatorios.addEventListener("click", () => {
                     case 4:
                         quantidadeDMes4 += allDoacoes[i].valor;
                         break;
-                    case 5:
+                        case 5:
                         quantidadeDMes5 += allDoacoes[i].valor;
                         break;
                     case 6:
@@ -866,13 +888,13 @@ buttonGestaoRelatorios.addEventListener("click", () => {
             google.charts.setOnLoadCallback(drawChartBazar)
             function drawChartBazar() {
                 let data = new google.visualization.arrayToDataTable([
-                    ["Mês", "Quantidade de Itens Doados"],
-                    ["Abril", quantidadeBMes4],
-                    ["Maio", quantidadeBMes5],
-                    ["Junho", quantidadeBMes6],
+                    ["Mês", "Quantidade de Itens Doados", "Quantidade de Itens Vendidos"],
+                    ["Abril", quantidadeBMes4, itensBVMes4],
+                    ["Maio", quantidadeBMes5, itensBVMes5],
+                    ["Junho", quantidadeBMes6, itensBVMes6],
                 ]);
                 let options = {
-                    title: "Doações:",
+                    title: "Itens do Bazar:",
                     height: 540,
                 }
 
@@ -884,19 +906,21 @@ buttonGestaoRelatorios.addEventListener("click", () => {
             google.charts.setOnLoadCallback(drawChartBazarVendido)
             function drawChartBazarVendido() {
                 let data = new google.visualization.arrayToDataTable([
-                    ["Mês", "Quantidade de Itens Doados", "Valor"],
-                    ["Abril", itensBVMes4, quantidadeBVMes4],
-                    ["Maio", itensBVMes5, quantidadeBVMes5],
-                    ["Junho", itensBVMes6, quantidadeBVMes6],
+                    ["Mês", "Valor Arrecadado R$",],
+                    ["Abril", quantidadeBVMes4],
+                    ["Maio", quantidadeBVMes5],
+                    ["Junho", quantidadeBVMes6],
+                    ["Média", mediaBV]
                 ]);
                 let options = {
-                    title: "Doações:",
+                    title: "Itens Vendidos do Bazar:",
                     height: 540,
                 }
 
-                let chart = new google.visualization.ColumnChart(document.getElementById("chart2"))
+                let chart = new google.visualization.ColumnChart(document.getElementById("chart1"))
                 chart.draw(data, options);
             };
+            relatorioBGerado++;
 
         } else if(relatorioMensagem.selected){
             let quantidadeCMes4 = 0;
@@ -1001,6 +1025,4 @@ buttonGestaoRelatorios.addEventListener("click", () => {
             };
         };
     });
-
-    gestaoR++;
 });
