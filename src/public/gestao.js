@@ -869,7 +869,9 @@ buttonGestaoRelatorios.addEventListener("click", () => {
                         break;
                 };
             };
-            let mediaB = parseFloat(((quantidadeBMes4 + quantidadeBMes5 + quantidadeBMes6) / 3).toFixed(2));
+            
+            let totalB = (quantidadeBMes4 + quantidadeBMes5 + quantidadeBMes6)
+            let mediaB = parseFloat((totalB / 3).toFixed(2));
 
             let mesMaiorBQuantidade = Math.max(quantidadeBMes4, quantidadeBMes5, quantidadeBMes6);
 
@@ -907,7 +909,8 @@ buttonGestaoRelatorios.addEventListener("click", () => {
                         break;
                 };
             };
-            let mediaBV = parseFloat(((itensBVMes4 + itensBVMes5 + itensBVMes6) / 3).toFixed(2));
+            let totalBV = (itensBVMes4 + itensBVMes5 + itensBVMes6);
+            let mediaBV = parseFloat((totalBV / 3).toFixed(2));
             let mediaBVValor = parseFloat(((quantidadeBVMes4 + quantidadeBVMes5 + quantidadeBVMes6) / 3).toFixed(2));
 
             let mesMaiorBVQuantidade = Math.max(quantidadeBVMes4, quantidadeBVMes5, quantidadeBVMes6);
@@ -928,7 +931,7 @@ buttonGestaoRelatorios.addEventListener("click", () => {
             };
 
             let itensRestantesB = (quantidadeBMes4 + quantidadeBMes5 + quantidadeBMes6) - (itensBVMes4 + itensBVMes5 + itensBVMes6)
-            let totalBV = quantidadeBVMes4 + quantidadeBVMes5 + quantidadeBVMes6;
+            let totalBVValor = quantidadeBVMes4 + quantidadeBVMes5 + quantidadeBVMes6;
 
             console.log("Itens Bazar:", "Mês4:", quantidadeBMes4, "Mês5:", quantidadeBMes5, "Mês6:", quantidadeBMes6, "Média:", parseFloat(mediaB.toFixed(2)), "Mês com maior volume de cadastro:", mesMaiorB, "Quantidade:", mesMaiorBQuantidade);
 
@@ -943,6 +946,7 @@ buttonGestaoRelatorios.addEventListener("click", () => {
                     ["Maio", quantidadeBMes5, itensBVMes5],
                     ["Junho", quantidadeBMes6, itensBVMes6],
                     ["Média", mediaB, mediaBV],
+                    ["Total", totalB, totalBV],
                     ["Itens Restantes", itensRestantesB, 0]
                 ]);
                 let options = {
@@ -963,7 +967,7 @@ buttonGestaoRelatorios.addEventListener("click", () => {
                     ["Maio", quantidadeBVMes5],
                     ["Junho", quantidadeBVMes6],
                     ["Média", mediaBVValor],
-                    ["Total", totalBV]
+                    ["Total", totalBVValor]
                 ]);
                 let options = {
                     title: "Valor Arrecadado no Bazar:",
@@ -979,7 +983,7 @@ buttonGestaoRelatorios.addEventListener("click", () => {
                     ["Maio", quantidadeBMes5, itensBVMes5, quantidadeBVMes5],
                     ["Junho", quantidadeBMes6, itensBVMes6, quantidadeBVMes6],
                     ["Média", mediaB, mediaBV, mediaBVValor],
-                    ["Total", "", "", totalBV],
+                    ["Total", totalB, totalBV, totalBVValor],
                     ["Itens Restantes", itensRestantesB]
                 ];
                 var workbook = XLSX.utils.book_new(),
