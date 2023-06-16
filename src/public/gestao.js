@@ -685,7 +685,9 @@ buttonGestaoRelatorios.addEventListener("click", () => {
                         break;
                 };
             };
-            let mediaV = parseFloat(((quantidadeVMes4 + quantidadeVMes5 + quantidadeVMes6) / 3).toFixed(2));
+
+            let totalV = quantidadeVMes4 + quantidadeVMes5 + quantidadeVMes6;
+            let mediaV = parseFloat(((totalV) / 3).toFixed(2));
 
             let mesMaiorVQuantidade = Math.max(quantidadeVMes4, quantidadeVMes5, quantidadeVMes6);
 
@@ -715,7 +717,7 @@ buttonGestaoRelatorios.addEventListener("click", () => {
                     ["Maio", quantidadeVMes5],
                     ["Junho", quantidadeVMes6],
                     ["Média de Voluntários/mês", mediaV],
-                    [`${mesMaiorV} - mês com maior volume de cadastros`, mesMaiorVQuantidade]
+                    ["Total", totalV]
                 ]);
                 let options = {
                     title: "Voluntários:",
@@ -725,6 +727,21 @@ buttonGestaoRelatorios.addEventListener("click", () => {
                 let chart = new google.visualization.ColumnChart(document.getElementById("chart"))
                 chart.draw(data, options);
             };
+
+            var dataVoluntarios = [ 
+                ["Mês", "Quantidade de Voluntários"],
+                ["Abril", quantidadeVMes4],
+                ["Maio", quantidadeVMes5],
+                ["Junho", quantidadeVMes6],
+                ["Média de Voluntários/mês", mediaV],
+                ["Total", totalV],
+                ["Mês com maior quantidade de Voluntários", mesMaiorV]
+            ];
+            var workbook = XLSX.utils.book_new(),
+            worksheet = XLSX.utils.aoa_to_sheet(dataVoluntarios);
+            workbook.SheetNames.push("First");
+            workbook.Sheets["First"] = worksheet;
+            XLSX.writeFile(workbook, "relatorio_voluntarios.xlsx");
 
         } else if (relatorioDoacao.selected) {
             let quantidadeDMes4 = 0;
@@ -794,6 +811,21 @@ buttonGestaoRelatorios.addEventListener("click", () => {
                 let chart = new google.visualization.ColumnChart(document.getElementById("chart"))
                 chart.draw(data, options);
             };
+
+            var dataBazar = [ 
+                ["Mês", "Quantidade de Itens Doados", "Quantidade de Itens Vendidos", "Valor Arrecadado R$"],
+                ["Abril", quantidadeBMes4, itensBVMes4, quantidadeBVMes4],
+                ["Maio", quantidadeBMes5, itensBVMes5, quantidadeBVMes5],
+                ["Junho", quantidadeBMes6, itensBVMes6, quantidadeBVMes6],
+                ["Média", mediaB, mediaBV, mediaBVValor],
+                ["Total", "", "", totalBV],
+                ["Itens Restantes", itensRestantesB]
+            ];
+            var workbook = XLSX.utils.book_new(),
+            worksheet = XLSX.utils.aoa_to_sheet(dataBazar);
+            workbook.SheetNames.push("First");
+            workbook.Sheets["First"] = worksheet;
+            XLSX.writeFile(workbook, "relatorio_bazar.xlsx");
 
         } else if (relatorioBazar.selected) {
             let quantidadeBMes4 = 0;
@@ -895,6 +927,7 @@ buttonGestaoRelatorios.addEventListener("click", () => {
             };
 
             let itensRestantesB = (quantidadeBMes4 + quantidadeBMes5 + quantidadeBMes6) - (itensBVMes4 + itensBVMes5 + itensBVMes6)
+            let totalBV = quantidadeBVMes4 + quantidadeBVMes5 + quantidadeBVMes6;
 
             console.log("Itens Bazar:", "Mês4:", quantidadeBMes4, "Mês5:", quantidadeBMes5, "Mês6:", quantidadeBMes6, "Média:", parseFloat(mediaB.toFixed(2)), "Mês com maior volume de cadastro:", mesMaiorB, "Quantidade:", mesMaiorBQuantidade);
 
@@ -928,7 +961,8 @@ buttonGestaoRelatorios.addEventListener("click", () => {
                     ["Abril", quantidadeBVMes4],
                     ["Maio", quantidadeBVMes5],
                     ["Junho", quantidadeBVMes6],
-                    ["Média", mediaBVValor]
+                    ["Média", mediaBVValor],
+                    ["Total", totalBV]
                 ]);
                 let options = {
                     title: "Valor Arrecadado no Bazar:",
@@ -937,6 +971,21 @@ buttonGestaoRelatorios.addEventListener("click", () => {
 
                 let chart = new google.visualization.ColumnChart(document.getElementById("chart1"))
                 chart.draw(data, options);
+
+                var dataBazar = [ 
+                    ["Mês", "Quantidade de Itens Doados", "Quantidade de Itens Vendidos", "Valor Arrecadado R$"],
+                    ["Abril", quantidadeBMes4, itensBVMes4, quantidadeBVMes4],
+                    ["Maio", quantidadeBMes5, itensBVMes5, quantidadeBVMes5],
+                    ["Junho", quantidadeBMes6, itensBVMes6, quantidadeBVMes6],
+                    ["Média", mediaB, mediaBV, mediaBVValor],
+                    ["Total", "", "", totalBV],
+                    ["Itens Restantes", itensRestantesB]
+                ];
+                var workbook = XLSX.utils.book_new(),
+                worksheet = XLSX.utils.aoa_to_sheet(dataBazar);
+                workbook.SheetNames.push("First");
+                workbook.Sheets["First"] = worksheet;
+                XLSX.writeFile(workbook, "relatorio_bazar.xlsx");
             };
             relatorioBGerado++;
 
@@ -1044,6 +1093,20 @@ buttonGestaoRelatorios.addEventListener("click", () => {
 
                 let chart = new google.visualization.ColumnChart(document.getElementById("chart"))
                 chart.draw(data, options);
+
+                var dataContato = [ 
+                    ["Mês", "Total de Mensagens", "Tipo Voluntário", "Tipo Apadrinhamento/Doação", "Tipo Informações"],
+                    ["Abril", quantidadeCMes4, tipoCMes4V, tipoCMes4A, tipoCMes4I],
+                    ["Maio", quantidadeCMes5, tipoCMes5V, tipoCMes5A, tipoCMes5I],
+                    ["Junho", quantidadeCMes6, tipoCMes6V, tipoCMes6A, tipoCMes6I],
+                    ["Média", mediaC, mediaCV, mediaCA, mediaCI]
+                ];
+                var workbook = XLSX.utils.book_new(),
+                worksheet = XLSX.utils.aoa_to_sheet(dataContato);
+                workbook.SheetNames.push("First");
+                workbook.Sheets["First"] = worksheet;
+                XLSX.writeFile(workbook, "relatorio_contato.xlsx");
+
             };
         };
     });
