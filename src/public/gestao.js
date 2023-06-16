@@ -449,17 +449,21 @@ buttonGestaoBazar.addEventListener("click", () => {
 
         //Verifica, a partir do cpf, o nome do usuário responsável pelo item do bazar
         let bazarNome;
-        for (var i = 0; i < allBazar.length; i++) {
+        for (var i = 0; i < allBazar.length - 1; i++) {
+            console.log("bazarleng", allBazar.length)
             let data = new Date(allBazar[i].datahora)
             let dataFormatada = ((data.getDate() + "/" + ((data.getMonth() + 1)) + "/" + data.getFullYear()));
 
             for (var k = 0; k < allBazarVendido.length; k++) {
                 if (allBazar[i].uuid == allBazarVendido[k].uuid) {
+                    console.log("i:", i, "k:", k)
                     i++;
+                    break;
                 };
             };
 
             for (var j = 0; j < allVoluntarios.length; j++) {
+                console.log("i:", i, "j", j,"bazar:",allBazar[i], "voluntarios:",allVoluntarios[i])
                 if (allBazar[i].id_voluntario == allVoluntarios[j].uuid) {
                     bazarNome = allVoluntarios[j].nome;
                 };
@@ -835,7 +839,7 @@ buttonGestaoRelatorios.addEventListener("click", () => {
                         break;
                 };
             };
-            let mediaB = (quantidadeBMes4 + quantidadeBMes5 + quantidadeBMes6) / 3;
+            let mediaB = parseFloat(((quantidadeBMes4 + quantidadeBMes5 + quantidadeBMes6) / 3).toFixed(2));
 
             let mesMaiorBQuantidade = Math.max(quantidadeBMes4, quantidadeBMes5, quantidadeBMes6);
 
@@ -873,7 +877,8 @@ buttonGestaoRelatorios.addEventListener("click", () => {
                         break;
                 };
             };
-            let mediaBV = (quantidadeBVMes4 + quantidadeBVMes5 + quantidadeBVMes6) / 3;
+            let mediaBV = parseFloat(((itensBVMes4 + itensBVMes5 + itensBVMes6) / 3).toFixed(2));
+            let mediaBVValor = parseFloat(((quantidadeBVMes4 + quantidadeBVMes5 + quantidadeBVMes6) / 3).toFixed(2));
 
             let mesMaiorBVQuantidade = Math.max(quantidadeBVMes4, quantidadeBVMes5, quantidadeBVMes6);
 
@@ -892,7 +897,7 @@ buttonGestaoRelatorios.addEventListener("click", () => {
                     break;
             };
 
-            let itensRestantesB = mediaB * 3 - (itensBVMes4 + itensBVMes5 + itensBVMes6)
+            let itensRestantesB = (quantidadeBMes4 + quantidadeBMes5 + quantidadeBMes6) - (itensBVMes4 + itensBVMes5 + itensBVMes6)
 
             console.log("Itens Bazar:", "Mês4:", quantidadeBMes4, "Mês5:", quantidadeBMes5, "Mês6:", quantidadeBMes6, "Média:", parseFloat(mediaB.toFixed(2)), "Mês com maior volume de cadastro:", mesMaiorB, "Quantidade:", mesMaiorBQuantidade);
 
@@ -906,6 +911,8 @@ buttonGestaoRelatorios.addEventListener("click", () => {
                     ["Abril", quantidadeBMes4, itensBVMes4],
                     ["Maio", quantidadeBMes5, itensBVMes5],
                     ["Junho", quantidadeBMes6, itensBVMes6],
+                    ["Média", mediaB, mediaBV],
+                    ["Itens Restantes", itensRestantesB, 0]
                 ]);
                 let options = {
                     title: "Itens do Bazar:",
@@ -920,14 +927,14 @@ buttonGestaoRelatorios.addEventListener("click", () => {
             google.charts.setOnLoadCallback(drawChartBazarVendido)
             function drawChartBazarVendido() {
                 let data = new google.visualization.arrayToDataTable([
-                    ["Mês", "Valor Arrecadado R$",],
+                    ["Mês", "Valor Arrecadado R$"],
                     ["Abril", quantidadeBVMes4],
                     ["Maio", quantidadeBVMes5],
                     ["Junho", quantidadeBVMes6],
-                    ["Média", mediaBV]
+                    ["Média", mediaBVValor]
                 ]);
                 let options = {
-                    title: "Itens Vendidos do Bazar:",
+                    title: "Valor Arrecadado no Bazar:",
                     height: 540,
                 }
 
