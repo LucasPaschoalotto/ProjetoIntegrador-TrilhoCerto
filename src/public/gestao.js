@@ -450,20 +450,17 @@ buttonGestaoBazar.addEventListener("click", () => {
         //Verifica, a partir do cpf, o nome do usuário responsável pelo item do bazar
         let bazarNome;
         for (var i = 0; i < allBazar.length - 1; i++) {
-            console.log("bazarleng", allBazar.length)
             let data = new Date(allBazar[i].datahora)
             let dataFormatada = ((data.getDate() + "/" + ((data.getMonth() + 1)) + "/" + data.getFullYear()));
 
             for (var k = 0; k < allBazarVendido.length; k++) {
                 if (allBazar[i].uuid == allBazarVendido[k].uuid) {
-                    console.log("i:", i, "k:", k)
                     i++;
                     break;
                 };
             };
 
             for (var j = 0; j < allVoluntarios.length; j++) {
-                console.log("i:", i, "j", j,"bazar:",allBazar[i], "voluntarios:",allVoluntarios[i])
                 if (allBazar[i].id_voluntario == allVoluntarios[j].uuid) {
                     bazarNome = allVoluntarios[j].nome;
                 };
@@ -633,7 +630,7 @@ buttonGestaoRelatorios.addEventListener("click", () => {
     let fimRelatorios = document.getElementById("relatorios");
 
     fimRelatorios.insertAdjacentHTML("afterend", `
-        <div id="chart">;
+        <div id="chart">
         `)
 
     let fimChart1 = document.getElementById("chart");
@@ -976,7 +973,7 @@ buttonGestaoRelatorios.addEventListener("click", () => {
                                 tipoCMes4V++;
                                 break;
 
-                            case "Apadrinhamento":
+                            case "Apadrinhamento/Doações":
                                 tipoCMes4A++;
                                 break;
 
@@ -992,7 +989,7 @@ buttonGestaoRelatorios.addEventListener("click", () => {
                                 tipoCMes5V++;
                                 break;
 
-                            case "Apadrinhamento":
+                            case "Apadrinhamento/Doações":
                                 tipoCMes5A++;
                                 break;
 
@@ -1008,7 +1005,7 @@ buttonGestaoRelatorios.addEventListener("click", () => {
                                 tipoCMes6V++;
                                 break;
 
-                            case "Apadrinhamento":
+                            case "Apadrinhamento/Doações":
                                 tipoCMes6A++;
                                 break;
 
@@ -1021,7 +1018,10 @@ buttonGestaoRelatorios.addEventListener("click", () => {
                 };
             };
 
-            let mediaC = parseFloat(((quantidadeCMes4 + quantidadeCMes5 + quantidadeCMes6) / 3).toFixed(2))
+            let mediaC = parseFloat(((quantidadeCMes4 + quantidadeCMes5 + quantidadeCMes6) / 3).toFixed(2));
+            let mediaCV = parseFloat(((tipoCMes4V + tipoCMes5V + tipoCMes6V) / 3).toFixed(2));
+            let mediaCA = parseFloat(((tipoCMes4A + tipoCMes5A + tipoCMes6A) / 3).toFixed(2));
+            let mediaCI = parseFloat(((tipoCMes4I + tipoCMes5I + tipoCMes6I) / 3).toFixed(2));
 
             console.log("Mensagens 4:", quantidadeCMes4, "Tipo V:", tipoCMes4V, "Tipo A:", tipoCMes4A, "Tipo I:", tipoCMes4I, "\n",
                 "Mensagens 5:", quantidadeCMes5, "Tipo V:", tipoCMes5V, "Tipo A:", tipoCMes5A, "Tipo I:", tipoCMes5I, "\n",
@@ -1035,6 +1035,7 @@ buttonGestaoRelatorios.addEventListener("click", () => {
                     ["Abril", quantidadeCMes4, tipoCMes4V, tipoCMes4A, tipoCMes4I],
                     ["Maio", quantidadeCMes5, tipoCMes5V, tipoCMes5A, tipoCMes5I],
                     ["Junho", quantidadeCMes6, tipoCMes6V, tipoCMes6A, tipoCMes6I],
+                    ["Média", mediaC, mediaCV, mediaCA, mediaCI]
                 ]);
                 let options = {
                     title: "Mensagens:",
