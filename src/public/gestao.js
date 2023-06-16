@@ -1072,10 +1072,14 @@ buttonGestaoRelatorios.addEventListener("click", () => {
                 };
             };
 
-            let mediaC = parseFloat(((quantidadeCMes4 + quantidadeCMes5 + quantidadeCMes6) / 3).toFixed(2));
-            let mediaCV = parseFloat(((tipoCMes4V + tipoCMes5V + tipoCMes6V) / 3).toFixed(2));
-            let mediaCA = parseFloat(((tipoCMes4A + tipoCMes5A + tipoCMes6A) / 3).toFixed(2));
-            let mediaCI = parseFloat(((tipoCMes4I + tipoCMes5I + tipoCMes6I) / 3).toFixed(2));
+            let totalC = (quantidadeCMes4 + quantidadeCMes5 + quantidadeCMes6);
+            let mediaC = parseFloat((totalC / 3).toFixed(2));
+            let totalCV = (tipoCMes4V + tipoCMes5V + tipoCMes6V);
+            let mediaCV = parseFloat((totalCV / 3).toFixed(2));
+            let totalCA = (tipoCMes4A + tipoCMes5A + tipoCMes6A);
+            let mediaCA = parseFloat((totalCA / 3).toFixed(2));
+            let totalCI = (tipoCMes4I + tipoCMes5I + tipoCMes6I);
+            let mediaCI = parseFloat((totalCI / 3).toFixed(2));
 
             console.log("Mensagens 4:", quantidadeCMes4, "Tipo V:", tipoCMes4V, "Tipo A:", tipoCMes4A, "Tipo I:", tipoCMes4I, "\n",
                 "Mensagens 5:", quantidadeCMes5, "Tipo V:", tipoCMes5V, "Tipo A:", tipoCMes5A, "Tipo I:", tipoCMes5I, "\n",
@@ -1089,11 +1093,12 @@ buttonGestaoRelatorios.addEventListener("click", () => {
                     ["Abril", quantidadeCMes4, tipoCMes4V, tipoCMes4A, tipoCMes4I],
                     ["Maio", quantidadeCMes5, tipoCMes5V, tipoCMes5A, tipoCMes5I],
                     ["Junho", quantidadeCMes6, tipoCMes6V, tipoCMes6A, tipoCMes6I],
-                    ["Média", mediaC, mediaCV, mediaCA, mediaCI]
+                    ["Média", mediaC, mediaCV, mediaCA, mediaCI],
+                    ["Total", totalC, totalCV, totalCA, totalCI]
                 ]);
                 let options = {
                     title: "Mensagens:",
-                    height: 540,
+                    height: 720,
                 }
 
                 let chart = new google.visualization.ColumnChart(document.getElementById("chart"))
@@ -1104,7 +1109,8 @@ buttonGestaoRelatorios.addEventListener("click", () => {
                     ["Abril", quantidadeCMes4, tipoCMes4V, tipoCMes4A, tipoCMes4I],
                     ["Maio", quantidadeCMes5, tipoCMes5V, tipoCMes5A, tipoCMes5I],
                     ["Junho", quantidadeCMes6, tipoCMes6V, tipoCMes6A, tipoCMes6I],
-                    ["Média", mediaC, mediaCV, mediaCA, mediaCI]
+                    ["Média", mediaC, mediaCV, mediaCA, mediaCI],
+                    ["Total", totalC, totalCV, totalCA, totalCI]
                 ];
                 var workbook = XLSX.utils.book_new(),
                 worksheet = XLSX.utils.aoa_to_sheet(dataContato);
