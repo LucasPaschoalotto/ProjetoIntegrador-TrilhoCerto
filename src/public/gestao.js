@@ -771,7 +771,8 @@ buttonGestaoRelatorios.addEventListener("click", () => {
                         break;
                 };
             };
-            let mediaD = parseFloat(((quantidadeDMes4 + quantidadeDMes5 + quantidadeDMes6) / 3).toFixed(2));
+            let totalD = (quantidadeDMes4 + quantidadeDMes5 + quantidadeDMes6)
+            let mediaD = parseFloat(( totalD / 3).toFixed(2));
 
             let mesMaiorDQuantidade = Math.max(quantidadeDMes4, quantidadeDMes5, quantidadeDMes6);
 
@@ -801,7 +802,7 @@ buttonGestaoRelatorios.addEventListener("click", () => {
                     ["Maio", quantidadeDMes5],
                     ["Junho", quantidadeDMes6],
                     ["Média de Doações/mês", mediaD],
-                    [`${mesMaiorD} - mês com maior volume de doações`, mesMaiorDQuantidade]
+                    ["Total", totalD]
                 ]);
                 let options = {
                     title: "Doações:",
@@ -812,20 +813,20 @@ buttonGestaoRelatorios.addEventListener("click", () => {
                 chart.draw(data, options);
             };
 
-            var dataBazar = [ 
-                ["Mês", "Quantidade de Itens Doados", "Quantidade de Itens Vendidos", "Valor Arrecadado R$"],
-                ["Abril", quantidadeBMes4, itensBVMes4, quantidadeBVMes4],
-                ["Maio", quantidadeBMes5, itensBVMes5, quantidadeBVMes5],
-                ["Junho", quantidadeBMes6, itensBVMes6, quantidadeBVMes6],
-                ["Média", mediaB, mediaBV, mediaBVValor],
-                ["Total", "", "", totalBV],
-                ["Itens Restantes", itensRestantesB]
+            var dataDoacoes = [ 
+                ["Mês", "Total de Doações R$"],
+                ["Abril", quantidadeDMes4],
+                ["Maio", quantidadeDMes5],
+                ["Junho", quantidadeDMes6],
+                ["Média de Doações/mês", mediaD],
+                ["Total", totalD],
+                ["Mês com maior volume de Doações", mesMaiorD]
             ];
             var workbook = XLSX.utils.book_new(),
-            worksheet = XLSX.utils.aoa_to_sheet(dataBazar);
+            worksheet = XLSX.utils.aoa_to_sheet(dataDoacoes);
             workbook.SheetNames.push("First");
             workbook.Sheets["First"] = worksheet;
-            XLSX.writeFile(workbook, "relatorio_bazar.xlsx");
+            XLSX.writeFile(workbook, "relatorio_doacoes.xlsx");
 
         } else if (relatorioBazar.selected) {
             let quantidadeBMes4 = 0;
